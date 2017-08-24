@@ -1,0 +1,41 @@
+{
+  "host": "0.0.0.0",
+  "port": 5000,
+  "labels": [
+    "main"
+  ],
+  "routes": {
+    "cors": {
+      "origin": [
+        "*"
+      ],
+      "headers": [
+        "Accept",
+        "Authorization",
+        "Content-Type",
+        "If-None-Match",
+        "Accept-language",
+        "Origin"
+      ],
+      "additionalHeaders": [
+        "Access-Control-Allow-Origin",
+        "Access-Control-Allow-Headers",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers",
+        "Access-Control-Expose-Headers",
+        "x-app-origin",
+        "x-app-token",
+        "x-request-id",
+        "x-raw",
+        "x-otp-token",
+        "x-origin",
+        "x-requested-with"
+      ]
+    },
+    "validate": {
+      "options": {
+        "stripUnknown": true
+      }
+    }
+  }
+}
