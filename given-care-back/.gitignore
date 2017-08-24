@@ -1,0 +1,11 @@
+node_modules/
+.idea/
+*.iml
+.DS_Store
+*.log
+coverage.html
+.tmp
+yarn.lock
+.vscode/
+out/
+documentation/
