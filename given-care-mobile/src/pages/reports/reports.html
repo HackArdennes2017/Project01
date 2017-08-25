@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Un souci à nous remonter ?</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/map.svg');">
+  <div style="padding: 10px; position:fixed; width: 100%; bottom:90px;">
+  <ion-grid>
+      <ion-row>
+        <button style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button color="danger" outline ion-col col-12>
+          Appel d'urgence (tout abus sera sanctionné)
+        </button>
+      </ion-row>
+
+        <div style="margin-top : 20px;">
+          <ion-row>
+          <button (click)='sendReport("restroomFull")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
+              Les toilettes n'ont plus de papier/copeaux
+            </button>
+          </ion-row>
+
+          <ion-row>
+            <button (click)='sendReport("trashCanFull")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
+              La poubelle est pleine
+            </button>
+          </ion-row>
+
+          <ion-row>
+            <button (click)='sendReport("unknown")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
+              Autre
+            </button>
+          </ion-row>
+        </div>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col><button ion-button color="light" style="width: 100%" (click)="cancel()">Annuler</button></ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

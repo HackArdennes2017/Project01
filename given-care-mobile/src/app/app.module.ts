@@ -21,6 +21,8 @@ import { UserData } from '../providers/user-data/user-data';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { HttpModule } from '@angular/http';
+import {ReportsPage} from "../pages/reports/reports";
+import {ReportService} from "../services/report.service";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { HttpModule } from '@angular/http';
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ProjectsPage
+    ProjectsPage,
+    ReportsPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { HttpModule } from '@angular/http';
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ProjectsPage
+    ProjectsPage,
+    ReportsPage
   ],
   providers: [
     StatusBar,
@@ -54,7 +58,8 @@ import { HttpModule } from '@angular/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserData,
     UserService,
-    BackendService
+    BackendService,
+    ReportService
     //Storage
   ]
 })

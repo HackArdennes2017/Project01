@@ -9,7 +9,9 @@ export class BackendService {
   baseUrl = '';
 
   constructor(private http: Http, private userData:UserData) {
-    this.baseUrl = 'http://172.16.24.70:5000'; // Mat
+    //this.baseUrl = 'http://172.16.24.70:5000'; // Mat
+    this.baseUrl = 'http://localhost:5000';
+
   }
 
   getAuthenticated(uri) {
@@ -58,6 +60,6 @@ export class BackendService {
       });
     });
   }
-  
+
 
 }
