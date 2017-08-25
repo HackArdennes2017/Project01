@@ -11,7 +11,7 @@ const register = function (server, options, next) {
 };
 
 register.attributes = {
-    name: 'product'
+    name: 'report'
 };
 
 module.exports = register;
