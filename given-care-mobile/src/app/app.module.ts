@@ -73,7 +73,8 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     UserService,
     BackendService,
     ReportService,
-    AccountService
+    AccountService,
+    ProjectService
     //Storage
   ]
 })
