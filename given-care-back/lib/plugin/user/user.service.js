@@ -174,45 +174,44 @@ class UserService {
      */
     rateProject(userId, projectId, rate, isNew, next) {
 
+        let query, update;
+
         if(isNew){
 
-          UserDAO.findOneAndUpdate({
-              _id: UserDAO.createSafeMongoID(userId)
-          },{
-            $addToSet: {
-              'rates': {
-                rate: rate,
-                projectId: projectId
+            query = { _id :UserDAO.createSafeMongoID(userId) };
+
+            update = { $addToSet:
+              {
+                'rates': {
+                  rate: rate,
+                  projectId: projectId
+                }
               }
             }
-          },{
-            returnNewDocument: true
-          }, (err, user) => {
-              if (err) return next(Boom.wrap(err));
-              if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
-
-              return next(null, new User(user));
-          });
 
         } else {
 
-          UserDAO.findOneAndUpdate({
+          query = {
               _id: UserDAO.createSafeMongoID(userId),
               'rates.projectId': projectId
-          },{
+          }
+
+          update = {
             $set: {
               'rates.$.rate': rate
             }
-          },{
-            returnNewDocument: true
-          }, (err, user) => {
+          }
+
+        }
+
+          UserDAO.findOneAndUpdate(query, update, { returnNewDocument: true }, (err, user) => {
+
               if (err) return next(Boom.wrap(err));
               if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
 
               return next(null, new User(user));
           });
 
-        }
 
     }
 
