@@ -305,19 +305,23 @@ class UserService {
 
           if (err) return next(Boom.wrap(err));
           if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+          if (!user.rates) return next(Boom.notFound(`User ID ${userId} didn't rate project ID ${projectId} `));
 
           const rate = user.rates.find((rate) => {
-            return rate.projectId === projectId;
+
+            return rate.projectId == projectId;
+
           })
 
           if (!rate) return next(Boom.notFound(`User ID ${userId} didn't rate project ID ${projectId} `));
 
           const score = user.score;
           const balance = user.score / totalScore;
-
+          
           return next(null, balance * rate.rate);
 
       });
+
     }
 
 }

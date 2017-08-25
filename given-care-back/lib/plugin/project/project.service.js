@@ -5,8 +5,11 @@ const async = require('async');
 
 const Project = require('./project.class');
 const ProjectDAO = require('./project.dao');
+
 const UserService = require('../user/user.service');
 const UserDAO = require('../user/user.dao');
+
+const AccountDAO = require('../account/account.dao');
 
 const cfgManager = require('node-config-manager');
 
@@ -65,32 +68,70 @@ class ProjectService {
     */
     getDistribution(projectId, next){
 
+      //get score sum
       UserService.getTotalScore((err, total) => {
 
         if(err) return next(Boom.wrap(err));
 
-        UserDAO.find({score: { $gt : 0 }, 'rates.projectId': {$exists : 1} },(err, users) => {
+        // get all projects
+        this.getAllProjects((err, projects) => {
 
-          if(err) return next(Boom.wrap(err));
+            if (err) return next(Boom.wrap(err));
 
-          async.map(users, (user, callback) => {
+            // for each project get the users rate
+            async.mapSeries(projects, (project, callback1) => {
 
-            UserService.getBalancedRate(user._id, projectId, total, (err, rate) => {
-              if(err) return callback(err);
-              return callback(null, rate);
+              UserDAO.find({},  (err, users) => {
+
+                if(err) return next(Boom.wrap(err));
+
+                // for each user get the rates
+                async.mapSeries(users, (user, callback2) => {
+
+                  UserService.getBalancedRate(user._id, project._id, total, (err, rate) => {
+
+                    if(err) return callback2(err);
+                    if(!rate) return callback2(null, 0);
+                    return callback2(null, rate);
+
+                  });
+
+                }, (err, rates) => {
+
+                  const rateTotal = rates.reduce((sum, rate) => {
+                    if(!rate) return sum;
+                    return sum + rate;
+                  }, 0);
+
+                  return callback1(null, {rateTotal, projectId: project._id});
+
+                });
+
+              });
+
+            }, (err, distributions) => {
+
+              const projectDistribution = distributions.find((distribution) => {
+                return distribution.projectId == projectId
+              });
+
+              const distributionTotal = distributions.reduce((sum, distribution) => {
+                return sum + distribution.rateTotal;
+              }, 0);
+
+              const balance = projectDistribution.rateTotal / distributionTotal;
+
+              AccountDAO.findOne({isGlobalPot: true}, (err, pot) => {
+
+                if(err) return next(Boom.wrap(err));
+
+                return next(null, pot.balance * balance);
+
+              });
+
             });
 
-          }, (err, rates) => {
-
-            const rateTotal = rates.reduce(function(sum, rate) {
-              return sum + rate;
-            }, 0);
-
-            return next(null, rateTotal);
-
-          })
-
-        });
+        })
 
       });
 

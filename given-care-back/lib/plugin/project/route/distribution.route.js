@@ -15,7 +15,7 @@ module.exports = {
 
         ProjectService.getDistribution(id, (err, total) => {
 
-          reply({total: total});
+          return reply({total: total});
 
         })
 
