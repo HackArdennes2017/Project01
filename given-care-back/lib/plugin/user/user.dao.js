@@ -18,6 +18,9 @@ class UserDAO extends DaoMongoBase {
             },
             score: Joi.number().optional().min(0),
             accountId : Joi.string().required(),
+            settings : Joi.object().keys({
+              autoTip: Joi.number().min(0)
+            }),
             isMerchant : Joi.boolean().default(false).optional(),
             merchantDescription : Joi.object().keys({
                 companyName : Joi.string().required(),

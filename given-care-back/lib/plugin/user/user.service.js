@@ -226,7 +226,7 @@ class UserService {
      */
     updateScore(userId, score, next) {
 
-        UserDao.findOneAndUpdate({
+        UserDAO.findOneAndUpdate({
           _id: UserDAO.createSafeMongoID(userId)
         },{
           $set: {
@@ -241,6 +241,28 @@ class UserService {
             return next(null, new User(user));
         });
 
+    }
+
+    /**
+    * Set settings
+    * @param {String} userId
+    * @param {Object} settings
+    */
+    updateSetting(userId, settings, next){
+      UserDAO.findOneAndUpdate({
+        _id: UserDAO.createSafeMongoID(userId)
+      },{
+        $set: {
+          settings: settings
+        }
+      },{
+        returnNewDocument: true
+      }, (err, user) => {
+          if (err) return next(Boom.wrap(err));
+          if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+
+          return next(null, new User(user));
+      });
     }
 
 }
