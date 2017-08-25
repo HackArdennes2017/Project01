@@ -23,7 +23,7 @@ module.exports = {
     },
     config: {
         tags: ['api', 'user'],
-        auth: false,
+        auth: 'NoAuthStrategy',
         validate: {
             headers: Joi.object().options({allowUnknown: true}),
             payload: {
