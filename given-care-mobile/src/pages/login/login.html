@@ -8,9 +8,6 @@
 </ion-header>
 
 <ion-content>    
-    <div padding *ngIf="message">
-      {{ message }}
-    </div>
     <div padding>
       <ion-list>
         <ion-item>
@@ -24,6 +21,9 @@
         </ion-item>
       </ion-list>
       <button ion-button block (click)="login(email.value,password.value)">Se connecter</button>
-      <button ion-button outline block>Créer un compte</button>
+      <button ion-button outline (click)="register(email.value, password.value)" block>Créer un compte</button>
+    </div>
+    <div padding class="error">
+      {{ message }}
     </div>
 </ion-content>

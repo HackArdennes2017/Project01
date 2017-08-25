@@ -92,6 +92,7 @@ module.exports = function (server, options) { // jshint ignore:line
                 }
 
                 if (authorization) {
+                    request.response.header('Access-Control-Allow-Origin', '*');
                     request.response.header('Access-Control-Expose-Headers', 'authorization');
                     request.response.header('authorization', `Bearer ${results.newJWT}`);
                 }

@@ -275,6 +275,56 @@ class UserService {
       });
     }
 
+    /**
+    * Get a sum of all user score
+    */
+    getTotalScore(next){
+
+      UserDAO.find({score: { $gt : 0 } },(err, users) => {
+
+        if(err) return next(Boom.wrap(err));
+
+        const total = users.reduce(function(sum, user) {
+          return sum + user.score;
+        }, 0);
+
+        return next(null, total)
+
+      });
+
+    }
+
+    /**
+    * Get balanced rate for a given projectId and a given user
+    * @param {String} userId
+    * @param {String} projectId
+    * @param {String} totalScore
+    */
+    getBalancedRate(userId, projectId, totalScore, next ){
+      UserDAO.find({
+        _id: UserDAO.createSafeMongoID(userId)
+      },{
+        rates: {
+          $elemMatch : {
+            projectId: projectId
+          }
+        }
+    }, (err, user) => {
+      if (err) return next(Boom.wrap(err));
+      if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+
+      if (user.rates.length === 0) return next(Boom.notFound(`User ID ${userId} didn't rate project ID ${projectId} `));
+
+      const score = user.score;
+      const rate = user.rates[0].rate;
+
+      const balance = user.score / totalScore;
+
+      return next(null, balance * rate);
+
+    });
+  }
+
 }
 
 module.exports = new UserService();
