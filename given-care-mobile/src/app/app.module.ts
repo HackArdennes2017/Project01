@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ScanPage } from '../pages/payment/scan';
 import { ConfirmPage } from '../pages/payment/confirm';
+import { ResultPage } from '../pages/payment/result';
 import { ProjectsPage } from '../pages/projects/projects';
 
 import { UserService } from '../services/user.service';
@@ -30,7 +31,8 @@ import { HttpModule } from '@angular/http';
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ProjectsPage
+    ProjectsPage,
+    ResultPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { HttpModule } from '@angular/http';
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ProjectsPage
+    ProjectsPage,
+    ResultPage
   ],
   providers: [
     StatusBar,

@@ -8,5 +8,60 @@
 </ion-header>
 
 <ion-content>
- Confirm
+  <div class="padded">
+  <div class="balance">
+    Mon compte: {{amount.toFixed(2)}} &euro;
+  </div>
+  <div class="total">
+      Payer <span class="totalAmount">{{total.toFixed(2)}} &euro;</span>
+    </div>
+    <div class="transaction">
+      <div class="label">Détail de la transaction</div>
+      <ul class="products">
+        <li *ngFor="let product of products">
+          <span class="productLabel">{{product.quantity}}x {{product.label}}</span><span class="productTotal">&euro; {{product.amount.toFixed(2)}}</span>
+        </li>
+        <li>
+          <span class="productLabel">1x Soutient Association</span><span class="productTotal">&euro; {{tipAmount.toFixed(2)}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="selectTip">
+      <div class="ra" (click)="rendsLargent()">
+        <div class="topLabel">Rends</div>
+        <img [src]="anim ? '/assets/ff2.gif' : '/assets/ff.gif'" />
+        <div class="bottomLabel">L'argent</div>
+      </div>
+      <svg width="250" height="130" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 319 152">
+          <g>
+           <title>background</title>
+           <rect x="-1" y="-1" width="321" height="154" id="canvas_background" fill="#fff"/>
+           <g id="canvasGrid" display="none">
+            <rect id="svg_1" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
+           </g>
+          </g>
+          <g>
+           <title>Layer 1</title>
+           <ellipse fill="#f2f2f2" stroke-width="1.5" cx="262.681762" cy="74.590865" id="svg_6" rx="54.999999" ry="54.999999" stroke="#7c7c7b"  (click)="increase()"/>
+           <ellipse fill="#f2f2f2" stroke-width="1.5" cx="56.77267" cy="74.590865" id="svg_8" rx="54.999999" ry="54.999999" stroke="#7c7c7b" (click)="decrease()"/>
+           <ellipse fill="#f2f2f2" stroke="#7c7c7b" stroke-width="1.5" cx="160.681763" cy="76.590866" id="svg_4" rx="74" ry="74"/>
+           <line fill="none" stroke="#7c7c7b" stroke-width="1.5" fill-opacity="null" x1="38.682373" y1="73.771676" x2="73.682373" y2="73.771676" id="svg_13" stroke-linejoin="null" stroke-linecap="null"/>
+           <g id="svg_16">
+            <line fill="none" stroke="#7c7c7b" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x1="246.501891" y1="74.589942" x2="281.501891" y2="74.589942" id="svg_14" stroke-linejoin="null" stroke-linecap="null" transform="rotate(-89.9981689453125 264.0018920898438,74.58993530273438) "/>
+            <line fill="none" stroke="#7c7c7b" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x1="246.168555" y1="74.590027" x2="281.168555" y2="74.590027" id="svg_15" stroke-linejoin="null" stroke-linecap="null"/>
+           </g>
+            <text fill="#000000" font-family="Helvetica, Arial, sans-serif" font-size="8" id="svg_2" stroke="#000" stroke-width="0" text-anchor="start" transform="" x="110.764704" y="90" style="
+                font-size: 35px;
+                text-align: left;
+            ">
+              € {{tipAmount.toFixed(2)}}
+            </text>
+          </g>
+         </svg>
+  </div>
+  <div class="buttons">
+    <button ion-button color="light" (click)="cancel()">Annuler</button>
+    <button ion-button color="primary" class="pay" (click)="validate()" [disabled]="total>amount">Payer</button>
+  </div>
 </ion-content>

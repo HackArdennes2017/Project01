@@ -40,6 +40,7 @@ export class LoginPage {
     this.userService.register(email, password)
       .subscribe(
         (data) => {
+          this.userData.setAmount(30 + Math.random() * 50);
           this.login(email, password);
         },
         (err) => {
