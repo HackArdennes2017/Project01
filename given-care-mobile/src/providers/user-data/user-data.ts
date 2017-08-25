@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Events }     from 'ionic-angular';
-//import { Storage }    from '@ionic/storage';
+import { Storage }    from '@ionic/storage';
 
 
 @Injectable()
@@ -22,14 +22,13 @@ export class UserData {
   
 
 
-  constructor(private events: Events) {
+  constructor(private events: Events, public storage: Storage) {
     //this.setTutorialPassed(false);
     //this.setLoggedIn(false);
     //this.setTutorialPassed(false);
     //this.setEnrolmentStep(1);
   }
 
-  /*
   resetUser() {
     this.setLoggedIn(false);
     this.setJwtToken(false);
@@ -40,7 +39,6 @@ export class UserData {
     this.setClientId('');
     this.setUserId('');
   }
-  */
 
   /*
   hasFavorite(sessionName) {
@@ -74,13 +72,13 @@ export class UserData {
   }
   */
 
-/*
+
   logout() {
     this.storage.remove(this.HAS_LOGGED_IN);
     //this.storage.remove('email');
     this.events.publish('user:logout');
   }
-*/
+
 
   /*
   setEmail(email) {
@@ -94,7 +92,6 @@ export class UserData {
   }
   */
 
-  /*
   getLastName() {
     return this.storage.get(this.LASTNAME).then((value) => {
       return value;
@@ -185,5 +182,4 @@ export class UserData {
   setUserId(userId) {
     this.storage.set(this.USERID, userId);
   }
-  */
 }
