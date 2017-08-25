@@ -9,6 +9,7 @@ import { ScanPage } from '../pages/payment/scan';
 import { LoginPage } from '../pages/login/login';
 
 import { WelcomePage } from '../pages/welcome/welcome';
+import { ProjectsPage } from '../pages/projects/projects';
 
 import { UserData } from '../providers/user-data/user-data';
 
@@ -32,8 +33,9 @@ export class MyApp {
   appPages: PageObj[] = [
   ];
   loggedInPages: PageObj[] = [
-    { title: 'Home', component: HomePage, index: 1, icon: 'home' },
-    { title: 'Payment', component: ScanPage, index: 10, icon: 'cash' }
+    { title: 'Accueil', component: HomePage, index: 1, icon: 'home' },
+    { title: 'Paiement', component: ScanPage, index: 10, icon: 'cash' },
+    { title: 'Projets', component: ProjectsPage, index: 20, icon: 'flask'}
   ];
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events, public userData: UserData) {
@@ -44,7 +46,7 @@ export class MyApp {
     
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
   
-      this.enableMenu(hasLoggedIn === 'true');
+      this.enableMenu(hasLoggedIn);
   
         if(hasLoggedIn === true) {
           this.rootPage = HomePage;
