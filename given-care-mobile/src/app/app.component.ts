@@ -30,7 +30,7 @@ export class MyApp {
 
   appPages: PageObj[] = [
     { title: 'Home', component: HomePage, index: 1, icon: 'home' },
-    { title: 'Payment', component: PaymentPage, index: 10, icon: 'cash' }
+    { title: 'Payment', component: ScanPage, index: 10, icon: 'cash' }
   ];
   loggedInPages: PageObj[] = [
     { title: 'List', component: ListPage, index: 1, icon: 'list' }
