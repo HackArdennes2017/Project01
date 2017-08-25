@@ -32,7 +32,7 @@ module.exports = {
             payload: {
                 type : Joi.string().valid(['restroomFull', 'trashCanFull', 'medicalHelp', 'unknown']).default('unknown').optional(),
                 comment : Joi.string().optional(),
-                image : Joi.any(),
+                image : Joi.any().optional(),
                 gps : Joi.object().keys({
                     latitude : Joi.number().required(),
                     longitude : Joi.number().required()
