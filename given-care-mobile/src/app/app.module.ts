@@ -6,7 +6,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { PaymentPage } from '../pages/payment/payment';
+import { ScanPage } from '../pages/payment/scan';
+import { ConfirmPage } from '../pages/payment/confirm';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -17,7 +18,8 @@ import { UserData } from '../providers/user-data/user-data';
     MyApp,
     HomePage,
     ListPage,
-    PaymentPage
+    ScanPage,
+    ConfirmPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { UserData } from '../providers/user-data/user-data';
     MyApp,
     HomePage,
     ListPage,
-    PaymentPage
+    ScanPage,
+    ConfirmPage
   ],
   providers: [
     StatusBar,
