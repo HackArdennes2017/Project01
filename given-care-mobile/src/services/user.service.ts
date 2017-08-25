@@ -12,6 +12,17 @@ export class UserService {
       password
     });
   }
+
+  register(email, password) {
+    return this.back.postUnauthenticated('/users', {
+      email,
+      password
+    });
+  }
+
+  me() {
+    return this.back.getAuthenticated('/users/me');
+  }
   
 
 }

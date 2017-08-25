@@ -30,23 +30,21 @@ export class MyApp {
   //pages: Array<{title: string, component: any}>;
 
   appPages: PageObj[] = [
-    { title: 'Home', component: HomePage, index: 1, icon: 'home' },
-    { title: 'Payment', component: ScanPage, index: 10, icon: 'cash' }
   ];
   loggedInPages: PageObj[] = [
-    { title: 'List', component: ListPage, index: 1, icon: 'list' }
+    { title: 'Home', component: HomePage, index: 1, icon: 'home' },
+    { title: 'Payment', component: ScanPage, index: 10, icon: 'cash' }
   ];
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events, public userData: UserData) {
     this.initializeApp();
 
     // decide which menu items should be hidden by current login status stored in local storage
+    this.enableMenu(false);
     
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
   
       this.enableMenu(hasLoggedIn === 'true');
-  
-        console.log('hasLoggedIn : ' + hasLoggedIn);
   
         if(hasLoggedIn === true) {
           this.rootPage = HomePage;
@@ -94,8 +92,6 @@ export class MyApp {
   }
 
   enableMenu(loggedIn) {
-    console.log('test');
-    this.menu.enable(loggedIn, 'loggedInMenu');
-    this.menu.enable(!loggedIn, 'loggedOutMenu');
+    this.menu.enable(loggedIn);
   }
 }
