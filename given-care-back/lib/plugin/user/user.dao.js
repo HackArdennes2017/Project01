@@ -15,7 +15,13 @@ class UserDAO extends DaoMongoBase {
                     login: Joi.string().email().lowercase().required(),
                     password: Joi.binary().encoding('base64').required()
                 }
-            }
+            },
+            rates: Joi.array().items(
+              Joi.object().keys({
+                projectId: Joi.string().required(),
+                rate: Joi.number().required().min(1).max(3)
+              })
+            )
         }), [
             {
             name: '_id_',

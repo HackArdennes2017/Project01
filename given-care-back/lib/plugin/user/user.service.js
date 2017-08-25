@@ -17,7 +17,7 @@ const events = require('events');
 
 class UserService {
 
-    
+
     constructor() {
     }
 
@@ -146,6 +146,35 @@ class UserService {
             if (err) return next(Boom.wrap(err));
 
             return next(null, results.getUser);
+        });
+    }
+
+
+    /**
+     * Rate a project
+     *
+     * @param {String} userId
+     * @param {String} projectId
+     * @param {String} rate
+     * @param {Function} next
+     *
+     * @public
+     */
+    rateProject(userId, projectId, rate, next) {
+        UserDAO.findOneAndUpdate({
+            _id: UserDAO.createSafeMongoID(userId),
+            'rates.projectId': projectId
+        },{
+          $set: {
+            'rates.$.rate': rate
+          }
+        },{
+          returnNewDocument: true
+        }, (err, user) => {
+            if (err) return next(Boom.wrap(err));
+            if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+
+            return next(null, new User(user));
         });
     }
 
