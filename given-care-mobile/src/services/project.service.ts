@@ -10,4 +10,8 @@ export class ProjectService {
     return this.back.getAuthenticated('/projects');
   }
 
+  getDistribution(projectId){
+    return this.back.getAuthenticated('/projects/' + projectId + '/distribution');
+  }
+
 }

@@ -9,19 +9,16 @@
 
   <ion-card-content>
 
-    <!-- <ion-card-title>
-      Nine Inch Nails Live
-      </ion-card-title> -->
-    <p [innerHTML]="project.fullDescription"></p>
+    <p class="justify" [innerHTML]="project.fullDescription"></p>
 
-    <p>
+    <p class="justify" *ngIf="project.distribution">
       Projection des dons : <strong>{{project.distribution}} €</strong>
     </p>
 
     <ion-grid>
 
       <ion-row>
-        <ion-col offset-1>
+        <ion-col>
           <rating [ngStyle]="{'color': project.color}" class="star" [(ngModel)]="project.rate"
               readOnly="false"
               max="3"

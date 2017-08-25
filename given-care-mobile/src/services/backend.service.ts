@@ -60,5 +60,23 @@ export class BackendService {
     });
   }
 
+  putAuthenticated(uri, data) {
+    return new Promise((resolve, reject) => {
+      this.userData.getJwtToken().then(token => {
+        this.http.put(`${this.baseUrl}${uri}`, data, {
+          headers: new Headers({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          })}).subscribe(
+            response => {
+              this.userData.setJwtToken(response.headers.get('authorization'));
+              resolve(response)
+            },
+            err => reject(err)
+          );
+      });
+    });
+  }
+
 
 }
