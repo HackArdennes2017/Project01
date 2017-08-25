@@ -54,6 +54,27 @@ class AccountService {
         });
     }
 
+    /**
+     * Update account by its id
+     *
+     * @param {String} id
+     *
+     * @public
+     */
+    updateAccountById(id, object, next) {
+
+        AccountDAO.updateOne({
+            _id : AccountDAO.createSafeMongoID(id)
+        }, {
+            $set: object
+        }, (err, updated) => {
+            if (err) return next(Boom.wrap(err));
+            if (!updated) return next(Boom.internal('account update failed'));
+
+            return next(null, updated);
+        });
+    }
+
 
 }
 
