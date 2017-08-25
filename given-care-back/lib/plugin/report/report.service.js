@@ -4,11 +4,8 @@ const Boom = require('boom');
 const async = require('async');
 const cryptiles = require('cryptiles');
 
-const ProductDAO = require('./report.dao.js');
+const ReportDAO = require('./report.dao.js');
 const Hash = require('../../shared/security/Hash.class');
-const PaymentService = require('../payment/payment.service');
-const AccountService = require('../account/account.service');
-const ReportDAO = require('../account/report.service');
 
 const UserService = require('../user/user.service');
 const events = require('events');

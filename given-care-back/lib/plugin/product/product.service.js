@@ -142,6 +142,9 @@ class ProductService {
     }
 
 
+    listProducts(next){
+        ProductDAO.find({},{},next);
+    }
 }
 
 module.exports = new ProductService();

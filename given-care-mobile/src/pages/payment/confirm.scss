@@ -1,0 +1,81 @@
+.balance{
+  font-size: x-large;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.total{
+  width: 100%;
+  text-align: center;
+  font-size: xx-large;
+
+  .totalAmount{
+    font-size: 60px;
+  }
+}
+
+.transaction{
+
+  margin-top: 30px;
+
+  .label {
+    font-weight: bold;
+  }
+
+  .products{
+    padding: 0px;
+
+    li{
+      list-style: none;
+    }
+
+    .productLabel {
+      width: 80%;
+      display: inline-block;
+    }
+  }
+
+}
+
+.padded {
+  padding: 30px;
+}
+
+.selectTip{
+  vertical-align: top;
+  padding-left: 20px;
+  .ra{
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 15px;
+
+    img{
+      max-width: 70px;
+    }
+    .topLabel{
+      text-align: center;
+    }
+    .bottomLabel{
+      text-align: center;
+    }
+  }  
+}
+
+.buttons{
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  .pay{
+    width: 70%;
+  }
+}
+
+.result{
+  font-size: 40px;
+  text-align: center;
+}

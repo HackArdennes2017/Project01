@@ -5,6 +5,7 @@ import { Events } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 import { UserService } from '../../services/user.service';
+import { AccountService } from '../../services/account.service';
 import { UserData } from '../../providers/user-data/user-data';
 
 @Component({
@@ -14,7 +15,7 @@ import { UserData } from '../../providers/user-data/user-data';
 export class LoginPage {
   
   public message:string = null;
-  constructor(public events: Events, public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private userData: UserData) {}
+  constructor(public events: Events, public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private accountService:AccountService, private userData: UserData) {}
 
   login(email, password) {
     this.message = '';
@@ -27,6 +28,9 @@ export class LoginPage {
           this.events.publish('user:login');
           this.userService.me().then((resp:any) => {
             this.userData.setEmail(resp.json().email);
+          });
+          this.accountService.getAccount().then((account:any) => {
+            this.userData.setAmount(account.json().balance);
           });
         },
         (err) => {

@@ -9,6 +9,7 @@ export class UserData {
   HAS_LOGGED_IN = 'hasLoggedIn';
   JWT_TOKEN = 'jwtToken';
   EMAIL = 'email';
+  AMOUNT = 'amount';
 
   constructor(private events: Events, public storage: Storage) {}
 
@@ -16,6 +17,7 @@ export class UserData {
     this.setLoggedIn(false);
     this.setJwtToken(false);
     this.setEmail('');
+    this.setAmount(0);
   }
 
 
@@ -54,5 +56,15 @@ export class UserData {
 
   setJwtToken(token) {
     this.storage.set(this.JWT_TOKEN, token);
+  }
+
+  getAmount() {
+    return this.storage.get(this.AMOUNT).then((value) => {
+      return parseFloat(value);
+    });
+  }
+
+  setAmount(amount) {
+    this.storage.set(this.AMOUNT, amount);
   }
 }

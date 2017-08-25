@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ScanPage } from '../pages/payment/scan';
 import { ConfirmPage } from '../pages/payment/confirm';
+import { ResultPage } from '../pages/payment/result';
 import { ProjectsPage } from '../pages/projects/projects';
 
 import { ProjectCardComponent } from '../components/project-card/project-card';
@@ -24,6 +25,9 @@ import { UserData } from '../providers/user-data/user-data';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { HttpModule } from '@angular/http';
+import {ReportsPage} from "../pages/reports/reports";
+import {ReportService} from "../services/report.service";
+import {AccountService} from "../services/account.service";
 
 // Import ionic2-rating module
 import { Ionic2RatingModule } from 'ionic2-rating';
@@ -37,7 +41,9 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     ConfirmPage,
     LoginPage,
     ProjectsPage,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ReportsPage,
+    ResultPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,9 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     ScanPage,
     ConfirmPage,
     LoginPage,
+    ResultPage,
     ProjectsPage,
+    ReportsPage,
     ProjectCardComponent
   ],
   providers: [
@@ -64,7 +72,8 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     UserData,
     UserService,
     BackendService,
-    ProjectService
+    ReportService,
+    AccountService
     //Storage
   ]
 })
