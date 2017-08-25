@@ -34,7 +34,7 @@ import {ReportService} from "../services/report.service";
     ConfirmPage,
     LoginPage,
     ProjectsPage,
-    ReportsPage
+    ReportsPage,
     ResultPage
   ],
   imports: [
@@ -51,7 +51,7 @@ import {ReportService} from "../services/report.service";
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ResultPage
+    ResultPage,
     ProjectsPage,
     ReportsPage
   ],
