@@ -6,13 +6,13 @@ const Boom = require('boom');
 const ProductService = require('./../../product.service.js');
 
 module.exports = {
-    method: 'GET',
-    path: '/products/{id}',
+    method: 'POST',
+    path: '/products/{id}/pay',
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
         const {id} = request.params;
 
-        ProductService.getProductById(id, (err, account) => {
+        ProductService.payProduct(request, id, user, request.payload, (err, account) => {
             if(err) reply(Boom.wrap(err));
 
             return reply(account);
@@ -27,6 +27,9 @@ module.exports = {
             }).options({allowUnknown: true}),
             params: Joi.object().keys({
                 id : Joi.string().required()
+            }),
+            payload :  Joi.object().keys({
+                tip : Joi.number().optional()
             })
         },
         response: {

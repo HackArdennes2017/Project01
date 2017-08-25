@@ -12,10 +12,10 @@ module.exports = {
         const {user} = request.auth.credentials;
         const {id} = request.params;
 
-        ProductService.getProductById(id, (err, account) => {
+        ProductService.getProductById(id, (err, product) => {
             if(err) reply(Boom.wrap(err));
 
-            return reply(account);
+            return reply(product);
         });
     },
     config: {
