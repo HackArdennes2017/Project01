@@ -25,7 +25,9 @@ export class LoginPage {
           this.userData.setJwtToken(response.headers.get('authorization'));
           this.authSuccess();
           this.events.publish('user:login');
-          this.userService.me().then(console.log);
+          this.userService.me().then((resp:any) => {
+            this.userData.setEmail(resp.json().email);
+          });
         },
         (err) => {
           this.message = 'Erreur de connexion : vérifiez vos identifiants';

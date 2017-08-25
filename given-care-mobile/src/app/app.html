@@ -1,4 +1,29 @@
-<ion-menu [content]="content">
+<ion-menu id="loggedOutMenu" [content]="content" side="right">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
+        <ion-icon item-left [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+
+      <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)" class="menu-item">
+        <ion-icon item-left [name]="p.icon"></ion-icon>
+        {{p.title}}
+      </button>
+    </ion-list>
+
+  </ion-content>
+
+</ion-menu>
+
+
+<ion-menu [content]="content" side="right">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>
