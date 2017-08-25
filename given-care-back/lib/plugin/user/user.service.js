@@ -75,23 +75,9 @@ class UserService {
                     if (err && err.code === 11000) return callback('email already exists');
                     if (err) return callback(Boom.wrap(err));
 
-              UserDAO.insertOne({
-                  accountNumber,
-                  authentication: {
-                      credentials: {
-                          login: email.toLowerCase(),
-                          password: passwordEncrypted
-                      }
-                  },
-                  accountId: createAccount._id.toString()
-              }, (err, user) => {
-                  if (err && err.code === 11000) return callback('email already exists');
-                  if (err) return callback(Boom.wrap(err));
+                    return callback(null, user);
 
-                  return callback(null, user);
-              });
-
-
+                });
             }]
         }, (err, results) => {
             if (err) return next(Boom.wrap(err));

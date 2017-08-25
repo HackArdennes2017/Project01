@@ -21,13 +21,13 @@ class UserDAO extends DaoMongoBase {
             merchantDescription : Joi.object().keys({
                 companyName : Joi.string().required(),
                 description : Joi.string().optional()
-            }).optional()
+            }).optional(),
             rates: Joi.array().items(
               Joi.object().keys({
                 projectId: Joi.string().required(),
                 rate: Joi.number().min(1).max(3)
               })
-            ),
+            )
         }), [
             {
             name: '_id_',
