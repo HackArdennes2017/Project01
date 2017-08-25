@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -25,17 +25,14 @@ export class MyApp {
   //pages: Array<{title: string, component: any}>;
 
   appPages: PageObj[] = [
-    { title: 'Home', component: HomePage, index: 1, icon: 'home' }
-    //{ title: 'My profile', component: HomePage, index: 2, icon: 'ion-person' },
-    //{ title: 'Add a device', component: HomePage, index: 2, icon: 'add-circle' },
-    //{ title: 'Get help', component: HomePage, index: 3, icon: 'help-circle' },
-    //{ title: 'Feedback', component: FeedbackPage, index: 4, icon: 'chatbubbles' }
+    { title: 'Home', component: HomePage, index: 1, icon: 'home' },
+    { title: 'Payment', component: PaymentPage, index: 10, icon: 'cash' }
   ];
   loggedInPages: PageObj[] = [
-    { title: 'List', component: ListPage, index: 1, icon: 'home' }
+    { title: 'List', component: ListPage, index: 1, icon: 'list' }
   ];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events) {
     this.initializeApp();
 
     
@@ -49,6 +46,7 @@ export class MyApp {
     ];
     */
 
+    this.listenToLoginEvents();
   }
 
   initializeApp() {
@@ -64,5 +62,26 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  listenToLoginEvents() {
+    this.events.subscribe('user:login', () => {
+      this.enableMenu(true);
+    });
+
+    this.events.subscribe('user:signup', () => {
+      this.enableMenu(true);
+      console.log('we are signed up... so we enable menu');
+    });
+
+    this.events.subscribe('user:logout', () => {
+      this.enableMenu(false);
+    });
+  }
+
+  enableMenu(loggedIn) {
+    console.log('test');
+    this.menu.enable(loggedIn, 'loggedInMenu');
+    this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
 }
