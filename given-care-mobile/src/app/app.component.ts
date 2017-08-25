@@ -7,6 +7,10 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { PaymentPage } from '../pages/payment/payment';
 
+import { WelcomePage } from '../pages/welcome/welcome';
+
+import { UserData } from '../providers/user-data/user-data';
+
 export interface PageObj {
   title: string;
   component: any;
@@ -32,19 +36,26 @@ export class MyApp {
     { title: 'List', component: ListPage, index: 1, icon: 'list' }
   ];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events, public userData: UserData) {
     this.initializeApp();
 
-    
-
-    // used for an example of ngFor and navigation
-    /*
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: PaymentPage },
-      { title: 'Payment', component: PaymentPage },
-    ];
-    */
+    // decide which menu items should be hidden by current login status stored in local storage
+    this.userData.hasLoggedIn().then((hasLoggedIn) => {
+  
+      this.enableMenu(hasLoggedIn === 'true');
+  
+        console.log('hasLoggedIn : ' + hasLoggedIn);
+  
+        if(hasLoggedIn === true) {
+          this.rootPage = HomePage;
+        } else {
+          //if(! this.userData.hasPassedTutorial) {
+          //  this.rootPage = TutorialPage;
+          //} else {
+          this.rootPage = WelcomePage;
+          //}
+        }
+      });
 
     this.listenToLoginEvents();
   }
