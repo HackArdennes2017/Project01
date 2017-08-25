@@ -60,7 +60,18 @@ class UserService {
 
               const {createAccount, passwordEncrypted} = results;
 
-                UserDAO.insertOne({
+                UserDAO.insertOne(userData.isMerchant ? {
+                        accountNumber,
+                        authentication: {
+                            credentials: {
+                                login: email.toLowerCase(),
+                                password: passwordEncrypted
+                            }
+                        },
+                        accountId: createAccount._id.toString(),
+                        isMerchant : userData.isMerchant,
+                        merchantDescription : userData.merchantDescription
+                    } : {
                     accountNumber,
                     authentication: {
                         credentials: {
@@ -69,8 +80,7 @@ class UserService {
                         }
                     },
                     accountId: createAccount._id.toString(),
-                    isMerchant : userData.isMerchant,
-                    merchantDescription : userData.isMerchant ? userData.merchantDescription : null
+                    isMerchant : userData.isMerchant
                 }, (err, user) => {
                     if (err && err.code === 11000) return callback('email already exists');
                     if (err) return callback(Boom.wrap(err));
