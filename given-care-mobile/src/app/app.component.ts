@@ -29,7 +29,7 @@ export class MyApp {
   //pages: Array<{title: string, component: any}>;
 
   appPages: PageObj[] = [
-    { title: 'Home', component: HomePage, index: 1, icon: 'home' },
+    { title: 'Homes', component: HomePage, index: 1, icon: 'home' },
     { title: 'Payment', component: ScanPage, index: 10, icon: 'cash' }
   ];
   loggedInPages: PageObj[] = [
@@ -40,24 +40,24 @@ export class MyApp {
     this.initializeApp();
 
     // decide which menu items should be hidden by current login status stored in local storage
-    /*
+    
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
   
-      this.enableMenu(hasLoggedIn === 'true');
+      this.enableMenu(hasLoggedIn === true);
   
-        console.log('hasLoggedIn : ' + hasLoggedIn);
+      console.log('hasLoggedIn : ' + hasLoggedIn);
   
-        if(hasLoggedIn === true) {
-          this.rootPage = HomePage;
-        } else {
+      if(hasLoggedIn === true) {
+       this.rootPage = HomePage;
+       } else {
           //if(! this.userData.hasPassedTutorial) {
           //  this.rootPage = TutorialPage;
           //} else {
-          this.rootPage = WelcomePage;
+        this.rootPage = WelcomePage;
           //}
-        }
-      });
-      */
+      }
+    });
+      
 
     this.listenToLoginEvents();
   }
