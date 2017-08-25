@@ -24,6 +24,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 import {ReportsPage} from "../pages/reports/reports";
 import {ReportService} from "../services/report.service";
+import {AccountService} from "../services/account.service";
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {ReportService} from "../services/report.service";
     UserData,
     UserService,
     BackendService,
-    ReportService
+    ReportService,
+    AccountService
     //Storage
   ]
 })

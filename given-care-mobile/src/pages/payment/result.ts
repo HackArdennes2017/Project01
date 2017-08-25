@@ -12,14 +12,18 @@ import { UserData } from '../../providers/user-data/user-data';
 export class ResultPage {
 
   amount:number = 0;
-  products = [
-    {quantity: 1, label: 'Bière Meteor', amount: 2.5}
-  ]
+  products = [];
   tipAmount: number = 0;
   total:number = this.totalProducts() + this.tipAmount;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private userData:UserData) {
     this.userData.getAmount().then(amount => this.amount = amount);
     this.tipAmount = parseFloat(navParams.get("tipAmount"));
+    this.products.push({
+      quantity: parseInt(navParams.get('productCount')),
+      label: navParams.get('productLabel'),
+      amount: navParams.get('productAmount')
+    });
   }
 
   totalProducts() {

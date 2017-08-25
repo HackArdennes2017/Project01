@@ -12,7 +12,11 @@ export class ScanPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     setTimeout(() => {
-      this.navCtrl.push(ConfirmPage);
+      this.navCtrl.push(ConfirmPage,{
+        productCount: 1,
+        productLabel: 'Bière Meteor',
+        productAmount: 2.5
+      });
     }, 5000);
   }
 

@@ -14,14 +14,19 @@ export class ConfirmPage {
 
   anim:boolean = false;
   amount:number = 0;
-  products = [
-    {quantity: 1, label: 'Bière Meteor', amount: 2.5}
-  ]
+  products = [];
   tipAmount: number = 0.5;
   total:number = this.totalProducts() + this.tipAmount;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userData:UserData) {
+    // Get user amount
     userData.getAmount().then(amount => this.amount = amount);
+    // Product from QR code
+    this.products.push({
+      quantity: parseInt(navParams.get("productCount")),
+      label: navParams.get("productLabel"),
+      amount: parseFloat(navParams.get("productAmount")),
+    });
   }
 
   decrease(){
@@ -53,9 +58,14 @@ export class ConfirmPage {
   }
 
   validate(){
+    // Decrease local user account
     this.userData.setAmount(this.amount - (this.totalProducts() + this.tipAmount));
+    // Go to result page
     this.navCtrl.push(ResultPage,{
-      tipAmount: this.tipAmount
+      tipAmount: this.tipAmount,
+      productCount: this.products[0].quantity,
+      productLabel: this.products[0].label,
+      productAmount: this.products[0].amount
     });
   }
 
