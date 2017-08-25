@@ -3,19 +3,19 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const ProductService = require('./../../report.service.js');
+const ReportService = require('./../../report.service.js');
 
 module.exports = {
     method: 'GET',
-    path: '/products/{id}',
+    path: '/reports/{id}',
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
         const {id} = request.params;
 
-        ProductService.getProductById(id, (err, product) => {
+        ReportService.getReportById(id, (err, report) => {
             if(err) reply(Boom.wrap(err));
 
-            return reply(product);
+            return reply(report);
         });
     },
     config: {
