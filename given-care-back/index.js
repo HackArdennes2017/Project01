@@ -48,6 +48,10 @@ async.auto({
     server.auth.scheme('user', require('./lib/shared/security/auth/user.auth'));
     server.auth.strategy('UserStrategy', 'user');
 
+    server.auth.scheme('admin', require('./lib/shared/security/auth/admin.auth'));
+    server.auth.strategy('AdminStrategy', 'admin');
+
+
     // global plugins
     server.register([
         require('inert'),
@@ -64,6 +68,22 @@ async.auto({
             options: cfgGood
         }, {
             register: require('./lib/plugin/user'),
+            options: {
+                routes: {
+                    prefix: '/api/v1/'
+                }
+            }
+        },
+        {
+            register: require('./lib/plugin/account'),
+            options: {
+                routes: {
+                    prefix: '/api/v1/'
+                }
+            }
+        },
+        {
+            register: require('./lib/plugin/product'),
             options: {
                 routes: {
                     prefix: '/api/v1/'

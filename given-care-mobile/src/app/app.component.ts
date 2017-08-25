@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { PaymentPage } from '../pages/payment/payment';
 
 export interface PageObj {
   title: string;
@@ -43,7 +44,8 @@ export class MyApp {
     /*
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: PaymentPage },
+      { title: 'Payment', component: PaymentPage },
     ];
     */
 
