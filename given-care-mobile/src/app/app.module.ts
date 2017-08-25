@@ -11,7 +11,10 @@ import { ScanPage } from '../pages/payment/scan';
 import { ConfirmPage } from '../pages/payment/confirm';
 import { ProjectsPage } from '../pages/projects/projects';
 
+import { ProjectCardComponent } from '../components/project-card/project-card';
+
 import { UserService } from '../services/user.service';
+import { ProjectService } from '../services/project.service';
 import { BackendService } from '../services/backend.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,6 +25,9 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { HttpModule } from '@angular/http';
 
+// Import ionic2-rating module
+import { Ionic2RatingModule } from 'ionic2-rating';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -30,13 +36,15 @@ import { HttpModule } from '@angular/http';
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ProjectsPage
+    ProjectsPage,
+    ProjectCardComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +54,8 @@ import { HttpModule } from '@angular/http';
     ScanPage,
     ConfirmPage,
     LoginPage,
-    ProjectsPage
+    ProjectsPage,
+    ProjectCardComponent
   ],
   providers: [
     StatusBar,
@@ -54,7 +63,8 @@ import { HttpModule } from '@angular/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserData,
     UserService,
-    BackendService
+    BackendService,
+    ProjectService
     //Storage
   ]
 })

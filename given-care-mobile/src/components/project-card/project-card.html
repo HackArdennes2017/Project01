@@ -1,0 +1,41 @@
+<ion-card>
+
+  <ion-item>
+    <h2 [ngStyle]="{'color': project.color}"><strong>{{project.name}}</strong></h2>
+    <p>{{project.description}}</p>
+ </ion-item>
+
+  <img *ngIf="project.icon" [src]="'assets/img/'+project.icon"/>
+
+  <ion-card-content>
+
+    <!-- <ion-card-title>
+      Nine Inch Nails Live
+      </ion-card-title> -->
+    <p [innerHTML]="project.fullDescription"></p>
+
+    <p>
+      Projection des dons : <strong>{{project.distribution}} €</strong>
+    </p>
+
+    <ion-grid>
+
+      <ion-row>
+        <ion-col offset-1>
+          <rating *ngIf="project.rate" [ngStyle]="{'color': project.color}" class="star" [(ngModel)]="project.rate"
+              readOnly="false"
+              max="3"
+              emptyStarIconName="star-outline"
+              halfStarIconName="star-half"
+              starIconName="star"
+              nullable="false"
+              (ngModelChange)="rate($event)">  <!--use it when you need to do something when user clicks on a star. in case you only need to change ngModel property, this property can be ommited.-->
+          </rating>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </ion-card-content>
+
+</ion-card>
