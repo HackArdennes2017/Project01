@@ -6,6 +6,7 @@ const register = function (server, options, next) {
     server.route(require('./route/create.route'));
     server.route(require('./route/me/me.route'));
     server.route(require('./route/me/settings.route'));
+    server.route(require('./route/me/rate.route'));
 
     return next();
 };
