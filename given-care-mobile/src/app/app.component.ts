@@ -6,6 +6,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
+export interface PageObj {
+  title: string;
+  component: any;
+  icon: string;
+  index?: number;
+}
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -14,16 +21,31 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  //pages: Array<{title: string, component: any}>;
+
+  appPages: PageObj[] = [
+    { title: 'Home', component: HomePage, index: 1, icon: 'home' }
+    //{ title: 'My profile', component: HomePage, index: 2, icon: 'ion-person' },
+    //{ title: 'Add a device', component: HomePage, index: 2, icon: 'add-circle' },
+    //{ title: 'Get help', component: HomePage, index: 3, icon: 'help-circle' },
+    //{ title: 'Feedback', component: FeedbackPage, index: 4, icon: 'chatbubbles' }
+  ];
+  loggedInPages: PageObj[] = [
+    { title: 'List', component: ListPage, index: 1, icon: 'home' }
+  ];
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
+    
+
     // used for an example of ngFor and navigation
+    /*
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage }
     ];
+    */
 
   }
 
