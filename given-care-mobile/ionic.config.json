@@ -1,8 +1,6 @@
 {
-  "name": "given-care-mobile",
+  "name": "given-care-mobile.2",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+  "integrations": {}
 }

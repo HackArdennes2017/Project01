@@ -51,6 +51,8 @@ async.auto({
     server.auth.scheme('admin', require('./lib/shared/security/auth/admin.auth'));
     server.auth.strategy('AdminStrategy', 'admin');
 
+    server.auth.scheme('noAuth', require('./lib/shared/security/auth/no-auth.auth'));
+    server.auth.strategy('NoAuthStrategy', 'noAuth');
 
     // global plugins
     server.register([

@@ -9,9 +9,8 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginPage {
   
-  message = null;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService) {
-  }
+  public message:string = null;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService) {}
 
   login(email, password) {
     this.userService.login(email, password)

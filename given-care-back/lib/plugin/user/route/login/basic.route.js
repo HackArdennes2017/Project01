@@ -30,7 +30,7 @@ module.exports = {
     },
     config: {
         tags: ['api', 'user', 'login'],
-        auth: false,
+        auth: 'NoAuthStrategy',
         validate: {
             headers: Joi.object().options({allowUnknown: true}),
             payload: Joi.object().keys({
