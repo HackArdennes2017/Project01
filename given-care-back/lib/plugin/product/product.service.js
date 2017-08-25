@@ -67,6 +67,7 @@ class ProductService {
      * @param next
      */
     payProduct(request, id, user, data, next){
+
         async.auto({
             product : (callback) => {
                 this.getProductById(id, callback);
@@ -75,7 +76,7 @@ class ProductService {
                 const {product} = results;
                 const {merchantId} = product;
 
-                UserService.getUserById(merchantId, next);
+                UserService.getUserById(merchantId, callback);
             }],
             payment : ['merchant', (results, callback) => {
                 const {product, merchant} = results;
@@ -102,6 +103,10 @@ class ProductService {
 
                     const balance = account.balance - payment.totalAmount;
 
+                    if(balance < 0 )
+
+                    console.log("balance debitor : " + balance);
+
                     AccountService.updateAccountById(debitorAccountId, {balance}, callback);
                 })
             }],
@@ -115,6 +120,8 @@ class ProductService {
                     if(!account) return callback(Boom.badData('creditor not found'));
 
                     const balance = account.balance - payment.totalAmount;
+
+                    console.log("balance creditor : " + balance);
 
                     AccountService.updateAccountById(creditorAccountId, {balance}, callback);
                 })

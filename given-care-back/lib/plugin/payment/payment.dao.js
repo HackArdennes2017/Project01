@@ -2,7 +2,7 @@
 
 const Joi = require('joi');
 const DaoMongoBase = require('../../shared/base/mongo/DaoMongoBase');
-const COLLECTION_NAME = 'Account';
+const COLLECTION_NAME = 'Payment';
 
 class PaymentDAO extends DaoMongoBase {
     constructor() {
