@@ -9,14 +9,18 @@ module.exports = {
     method: 'PUT',
     path: '/projects/{id}/rate',
     handler: (request, reply) => {
-        const {rate} = request.payload;
+        const rate = request.payload.rate;
+
+        const isNew = request.payload.isNew
+
+        console.log(isNew);
 
         const {id} = request.params;
         const {user} = request.auth.credentials;
 
         request.log(['debug'], `START < controller.projects.rate > Params => ${rate}`);
 
-        UserService.rateProject(user._id, id, rate, (err, user) => {
+        UserService.rateProject(user._id, id, rate, isNew, (err, user) => {
             if (err) return reply(Boom.wrap(err));
 
             request.log(['info'], `< controller.register > New rate [projectId: ${id}]`);
@@ -32,7 +36,8 @@ module.exports = {
                 'authorization': Joi.string().required()
             }).options({allowUnknown: true}),
             payload: {
-                rate: Joi.number().required().min(1).max(3)
+                rate: Joi.number().required().min(1).max(3),
+                isNew: Joi.boolean()
             },
             params: Joi.object({
               'id': Joi.string().required()
