@@ -16,7 +16,7 @@ export class PaymentPage {
   ionViewDidLoad(){
     const scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
-      console.log(content);
+      alert(content);
     });
     Instascan.Camera.getCameras().then(function (cameras) {
       if (cameras.length > 0) {
