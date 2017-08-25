@@ -1,5 +1,8 @@
 {
   "password": {
     "salt": "RJ74X5V4xcQj8D3N076fXA5VL0ywQn6x"
+  },
+  "jwt": {
+    "secret" : "u1XsWZhSY9n4X0lwlzTy2gs9XJTPjaPasoUROhTHAt0QVZFA1hwgOzJLzCAR+M+x63DeT9H7D/DmcdWnGHyk6GhD0ZOwLU4W5kli7WHENZm3QAtoJuhuyDhKglxkqmjsHGpDKdHCn/WdgwGxzV+lg8xw0urR33ipW7lLora6m0kAf28Pbk12GtEooSucsCdXfZWpqla4Rqt5ybGD5Y74L3k1iPxtLCpUYVUfdqQJR0JVZ9ROOETKUwRdWSw2O/RjLuY2ia6xv2MaRxSGEPuzzkNs8PIFZRr/x9iPs0qUVootrToOQPl5CWYu9acYnmuhFT1jWwzBZV1uUTA7wtiXQA=="
   }
 }

@@ -3,15 +3,19 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const UserService = require('../../user.service');
+const AccountService = require('./../account.service');
 
 module.exports = {
     method: 'GET',
-    path: '/users/me',
+    path: '/accounts/',
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
 
-        reply({email : user.authentication.credentials.login});
+        AccountService.getAccountById(user.accountId, (err, account) => {
+            if(err) reply(Boom.wrap(err));
+
+            return reply(account);
+        });
     },
     config: {
         tags: ['api', 'user', 'me'],
