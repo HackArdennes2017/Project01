@@ -24,7 +24,7 @@ class JWT {
         if (!data.trackingNumber) data.trackingNumber = uuid.v4();
 
         const privateKey = cfgSecurity.jwt && cfgSecurity.jwt.secret;
-        const options = {};
+        const options = {expiresIn : '180s'};
 
         options.audience = 'given-care';
         options.subject = `given-care|${userId}`;
