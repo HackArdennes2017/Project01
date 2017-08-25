@@ -7,7 +7,7 @@ const cryptiles = require('cryptiles');
 const PaymentDAO = require('./payment.dao.js');
 const Hash = require('../../shared/security/Hash.class');
 
-const ProductService = require('../product/product.service');
+const ProductDAO = require('../product/product.dao');
 
 const events = require('events');
 
@@ -54,29 +54,6 @@ class PaymentService {
 
             return next(null, payment);
         });
-    }
-
-    /**
-     * Compute the amount with the defined tip
-     *
-     * @param {String} id
-     *
-     * @public
-     */
-    computeTotalAmount(productId, productNumber, tip, next) {
-        ProductService.getProductById(productId, (err, product) => {
-          if (err) return next(Boom.wrap(err));
-          if(!product) return next(Boom.notFound(`Product ID ${productId} doesn't exist`))
-
-          const {price} = product;
-          const amount = productNumber * price;
-
-          const decimal = 1 / tip;
-
-          const totalAmount = Math.ceil(amount * decimal) / decimal;
-          return next(null, totalAmount);
-        });
-
     }
 
 
