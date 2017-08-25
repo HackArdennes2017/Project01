@@ -42,10 +42,10 @@ export class ScanPage {
   selectCameras(cameras) {
     if(cameras.length == 0) return null;
     const back = cameras.find(c => {
-      c.name.toLowerCase().indexOf('back') >= 0
+      c.name && c.name.toLowerCase().indexOf('back') >= 0
     });
     if(back) return back;
-    return cameras[0];
+    return cameras[cameras.length - 1];
   }
 
 }
