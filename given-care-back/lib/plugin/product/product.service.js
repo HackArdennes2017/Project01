@@ -19,14 +19,17 @@ class ProductService {
      * Create a new product
      *
      * @param request
+     * @param merchant
      * @param data
      * @param next
      *
      * @public
      */
-    create(request, data, next) {
+    create(request, merchant, data, next) {
 
         request.log(['info'], `< AccountService.create >`);
+
+        Object.assign(data, {merchantId : merchant._id.toString()});
 
         ProductDAO.insertOne(data, (err, product) => {
             if (err && err.code === 11000) return next('error while creating product');

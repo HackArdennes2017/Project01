@@ -16,13 +16,19 @@ class UserDAO extends DaoMongoBase {
                     password: Joi.binary().encoding('base64').required()
                 }
             },
+            score: Joi.number().optional().min(0),
+            accountId : Joi.string().required(),
+            isMerchant : Joi.boolean().default(false).optional(),
+            merchantDescription : Joi.object().keys({
+                companyName : Joi.string().required(),
+                description : Joi.string().optional()
+            }).optional(),
             rates: Joi.array().items(
               Joi.object().keys({
                 projectId: Joi.string().required(),
                 rate: Joi.number().min(1).max(3)
               })
-            ),
-            accountId : Joi.string().required()
+            )
         }), [
             {
             name: '_id_',

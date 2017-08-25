@@ -9,8 +9,9 @@ class ProductDAO extends DaoMongoBase {
         super(COLLECTION_NAME, Joi.object().keys({
             description : Joi.string().optional(),
             price : Joi.number().min(0).required(),
-            currency : Joi.string().default('EUR').required()
-        }), [
+            currency : Joi.string().default('EUR').required(),
+            merchantId : Joi.string().required()
+    }), [
             {
             name: '_id_',
             key: {

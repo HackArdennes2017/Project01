@@ -56,28 +56,28 @@ class UserService {
             createAccount: (callback) => {
                 AccountService.create(request, {balance : 0}, callback);
             },
-            createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {          
+            createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {
 
               const {createAccount, passwordEncrypted} = results;
 
+                UserDAO.insertOne({
+                    accountNumber,
+                    authentication: {
+                        credentials: {
+                            login: email.toLowerCase(),
+                            password: passwordEncrypted
+                        }
+                    },
+                    accountId: createAccount._id.toString(),
+                    isMerchant : userData.isMerchant,
+                    merchantDescription : userData.isMerchant ? userData.merchantDescription : null
+                }, (err, user) => {
+                    if (err && err.code === 11000) return callback('email already exists');
+                    if (err) return callback(Boom.wrap(err));
 
-              UserDAO.insertOne({
-                  accountNumber,
-                  authentication: {
-                      credentials: {
-                          login: email.toLowerCase(),
-                          password: passwordEncrypted
-                      }
-                  },
-                  accountId: createAccount._id.toString()
-              }, (err, user) => {
-                  if (err && err.code === 11000) return callback('email already exists');
-                  if (err) return callback(Boom.wrap(err));
+                    return callback(null, user);
 
-                  return callback(null, user);
-              });
-
-
+                });
             }]
         }, (err, results) => {
             if (err) return next(Boom.wrap(err));
@@ -166,7 +166,8 @@ class UserService {
      *
      * @param {String} userId
      * @param {String} projectId
-     * @param {String} rate
+     * @param {Int} rate
+     * @param {Boolean} isNew
      * @param {Function} next
      *
      * @public
@@ -176,7 +177,7 @@ class UserService {
         if(isNew){
 
           UserDAO.findOneAndUpdate({
-              _id: UserDAO.createSafeMongoID(userId),
+              _id: UserDAO.createSafeMongoID(userId)
           },{
             $addToSet: {
               'rates': {
@@ -212,6 +213,34 @@ class UserService {
           });
 
         }
+
+    }
+
+    /**
+     * Set score of a given user
+     *
+     * @param {String} userId
+     * @param {Int} score
+     * @param {Function} next
+     *
+     * @public
+     */
+    updateScore(userId, score, next) {
+
+        UserDao.findOneAndUpdate({
+          _id: UserDAO.createSafeMongoID(userId)
+        },{
+          $set: {
+            score: score
+          }
+        },{
+          returnNewDocument: true
+        }, (err, user) => {
+            if (err) return next(Boom.wrap(err));
+            if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+
+            return next(null, new User(user));
+        });
 
     }
 

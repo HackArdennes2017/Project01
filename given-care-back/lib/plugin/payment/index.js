@@ -2,13 +2,13 @@
 
 const register = function (server, options, next) {
 
-    server.route(require('./route/get.route'));
+    server.route(require('./route/id/get.route.js'));
 
     return next();
 };
 
 register.attributes = {
-    name: 'account'
+    name: 'payment'
 };
 
 module.exports = register;

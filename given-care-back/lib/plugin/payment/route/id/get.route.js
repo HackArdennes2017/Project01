@@ -3,18 +3,18 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const AccountService = require('./../account.service');
+const PaymentService = require('./../../payment.service.js');
 
 module.exports = {
     method: 'GET',
-    path: '/accounts/',
+    path: '/payments/{id}',
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
 
-        AccountService.getAccountById(user.accountId, (err, account) => {
+        PaymentService.getPaymentById(request.params.id, (err, payment) => {
             if(err) reply(Boom.wrap(err));
 
-            return reply(account);
+            return reply(payment);
         });
     },
     config: {
@@ -23,7 +23,10 @@ module.exports = {
         validate: {
             headers: Joi.object({
                 'authorization': Joi.string().required()
-            }).options({allowUnknown: true})
+            }).options({allowUnknown: true}),
+            params : Joi.object({
+                id : Joi.string().required()
+            })
         },
         response: {
             status: {
