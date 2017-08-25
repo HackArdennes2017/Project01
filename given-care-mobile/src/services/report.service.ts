@@ -6,14 +6,8 @@ export class ReportService {
 
   constructor(private back: BackendService) {}
 
-  send(type) {
-    return this.back.postAuthenticated('/reports', {
-      type,
-      gps : {
-        latitude : 347,
-        longitude : 32
-      }
-    });
+  send(data) {
+    return this.back.postAuthenticated('/reports', data);
   }
 
   me() {
