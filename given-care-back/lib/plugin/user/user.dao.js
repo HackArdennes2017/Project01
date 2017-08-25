@@ -22,6 +22,12 @@ class UserDAO extends DaoMongoBase {
                 companyName : Joi.string().required(),
                 description : Joi.string().optional()
             }).optional()
+            rates: Joi.array().items(
+              Joi.object().keys({
+                projectId: Joi.string().required(),
+                rate: Joi.number().min(1).max(3)
+              })
+            ),
         }), [
             {
             name: '_id_',

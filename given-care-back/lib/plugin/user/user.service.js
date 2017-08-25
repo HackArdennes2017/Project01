@@ -8,6 +8,8 @@ const User = require('./user.class');
 const UserDAO = require('./user.dao');
 const Hash = require('../../shared/security/Hash.class');
 
+const ProjectService = require('../project/project.service');
+
 const AccountService = require('../account/account.service');
 
 const cfgManager = require('node-config-manager');
@@ -19,7 +21,7 @@ const events = require('events');
 
 class UserService {
 
-    
+
     constructor() {
     }
 
@@ -54,9 +56,9 @@ class UserService {
             createAccount: (callback) => {
                 AccountService.create(request, {balance : 0}, callback);
             },
-            createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {
+            createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {          
 
-                const {createAccount, passwordEncrypted} = results;
+              const {createAccount, passwordEncrypted} = results;
 
                 UserDAO.insertOne({
                     accountNumber,
@@ -73,8 +75,23 @@ class UserService {
                     if (err && err.code === 11000) return callback('email already exists');
                     if (err) return callback(Boom.wrap(err));
 
-                    return callback(null, user);
-                });
+              UserDAO.insertOne({
+                  accountNumber,
+                  authentication: {
+                      credentials: {
+                          login: email.toLowerCase(),
+                          password: passwordEncrypted
+                      }
+                  },
+                  accountId: createAccount._id.toString()
+              }, (err, user) => {
+                  if (err && err.code === 11000) return callback('email already exists');
+                  if (err) return callback(Boom.wrap(err));
+
+                  return callback(null, user);
+              });
+
+
             }]
         }, (err, results) => {
             if (err) return next(Boom.wrap(err));
@@ -155,6 +172,61 @@ class UserService {
 
             return next(null, results.getUser);
         });
+    }
+
+
+    /**
+     * Rate a project
+     *
+     * @param {String} userId
+     * @param {String} projectId
+     * @param {String} rate
+     * @param {Function} next
+     *
+     * @public
+     */
+    rateProject(userId, projectId, rate, isNew, next) {
+
+        if(isNew){
+
+          UserDAO.findOneAndUpdate({
+              _id: UserDAO.createSafeMongoID(userId),
+          },{
+            $addToSet: {
+              'rates': {
+                rate: rate,
+                projectId: projectId
+              }
+            }
+          },{
+            returnNewDocument: true
+          }, (err, user) => {
+              if (err) return next(Boom.wrap(err));
+              if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+
+              return next(null, new User(user));
+          });
+
+        } else {
+
+          UserDAO.findOneAndUpdate({
+              _id: UserDAO.createSafeMongoID(userId),
+              'rates.projectId': projectId
+          },{
+            $set: {
+              'rates.$.rate': rate
+            }
+          },{
+            returnNewDocument: true
+          }, (err, user) => {
+              if (err) return next(Boom.wrap(err));
+              if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+
+              return next(null, new User(user));
+          });
+
+        }
+
     }
 
 }

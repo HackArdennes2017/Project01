@@ -73,6 +73,8 @@ async.auto({
                     prefix: '/api/v1/'
                 }
             }
+        }, {
+            register: require('./lib/plugin/project'),
         },
         {
             register: require('./lib/plugin/account'),
