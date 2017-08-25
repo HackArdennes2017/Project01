@@ -4,6 +4,10 @@ const Boom = require('boom');
 const async = require('async');
 const uuid = require('uuid');
 const JsonWebToken = require('jsonwebtoken');
+const cfgManager = require('node-config-manager');
+
+const cfgSecurity = cfgManager.method.Security();
+
 
 const AES = require('./AES');
 
@@ -19,27 +23,18 @@ class JWT {
 
         if (!data.trackingNumber) data.trackingNumber = uuid.v4();
 
-        async.auto({
-            privateKeyDecrypted: ['getApplication', (results, callback) => {
-                const application = results.getApplication;
+        const privateKey = cfgSecurity.jwt && cfgSecurity.jwt.secret;
+        const options = {};
 
-                AES.decrypt(request, application.security.jwt.privateKey.buffer, callback);
-            }]
-        }, (err, results) => {
-            if (err) return next(err);
+        options.audience = 'given-care';
+        options.subject = `given-care|${userId}`;
 
-            const privateKey = results.privateKeyDecrypted;
-            const options = application.security.jwt.options;
+        return next(null, JsonWebToken.sign({
+            userId,
+            provider: 'given-care',
+            data
+        }, privateKey, options));
 
-            options.audience = appId;
-            options.subject = `${application.name}|${userId}`;
-
-            return next(null, JsonWebToken.sign({
-                userId,
-                provider: application.name,
-                data
-            }, privateKey, options));
-        });
     }
 
     static getData(request, next) {

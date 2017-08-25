@@ -11,7 +11,7 @@ module.exports = {
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
 
-        reply(user.authentication.credentials.login);
+        reply({email : user.authentication.credentials.login});
     },
     config: {
         tags: ['api', 'user', 'me'],
