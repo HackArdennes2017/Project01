@@ -9,7 +9,7 @@ class PaymentDAO extends DaoMongoBase {
         super(COLLECTION_NAME, Joi.object().keys({
             totalAmount : Joi.number().required(),
             tipAmount: Joi.number().default(0).optional(),
-            status: Joi.string.valid(['created', 'proceeded']),
+            status: Joi.string().valid(['created', 'proceeded']),
             debitorAccountId: Joi.string().required(),
             creditorAccountId: Joi.string().required()
         }), [

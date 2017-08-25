@@ -4,7 +4,7 @@ const Boom = require('boom');
 const async = require('async');
 const cryptiles = require('cryptiles');
 
-const AccountDAO = require('./payment.dao.js');
+const PaymentDAO = require('./payment.dao.js');
 const Hash = require('../../shared/security/Hash.class');
 
 const events = require('events');
@@ -16,7 +16,7 @@ class PaymentService {
     }
 
     /**
-     * Create a new account for a given user
+     * Create a new payment
      *
      * @param request
      * @param data
@@ -26,31 +26,31 @@ class PaymentService {
      */
     create(request, data, next) {
 
-        request.log(['info'], `< AccountService.create >`);
+        request.log(['info'], `< PaymentService.create >`);
 
-        AccountDAO.insertOne(data, (err, account) => {
-            if (err && err.code === 11000) return next('error while creating account');
+        PaymentDAO.insertOne(data, (err, payment) => {
+            if (err && err.code === 11000) return next('error while creating payment');
             if (err) return next(Boom.wrap(err));
 
-            return next(null, account);
+            return next(null, payment);
         });
     }
 
     /**
-     * Get account by its id
+     * Get payment by its id
      *
      * @param {String} id
      *
      * @public
      */
-    getAccountById(id, next) {
-        AccountDAO.findOne({
-            _id: AccountDAO.createSafeMongoID(id)
-        }, (err, account) => {
+    getPaymentById(id, next) {
+        PaymentDAO.findOne({
+            _id: PaymentDAO.createSafeMongoID(id)
+        }, (err, payment) => {
             if (err) return next(Boom.wrap(err));
-            if (!account) return next();
+            if (!payment) return next();
 
-            return next(null, account);
+            return next(null, payment);
         });
     }
 
