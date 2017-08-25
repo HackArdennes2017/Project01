@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Payment</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+    <div class="padded">
+      <div class="balance">
+        Mon compte: {{amount.toFixed(2)}} &euro;
+      </div>
+      <div class="result">
+          C'est bien payé !
+        </div>
+        <div class="transaction">
+          <div class="label">Détail de la transaction</div>
+          <ul class="products">
+            <li *ngFor="let product of products">
+              <span class="productLabel">{{product.quantity}}x {{product.label}}</span><span class="productTotal">&euro; {{product.amount.toFixed(2)}}</span>
+            </li>
+            <li>
+              <span class="productLabel">1x Soutient Association</span><span class="productTotal">&euro; {{tipAmount.toFixed(2)}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>    
+      <div class="buttons" style="padding: 10px;padding-bottom: 0px;">
+        <button ion-button color="primary" full (click)="validate()">Retour</button>
+      </div>
+  </ion-content>
+  

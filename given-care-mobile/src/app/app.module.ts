@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ScanPage } from '../pages/payment/scan';
 import { ConfirmPage } from '../pages/payment/confirm';
+import { ResultPage } from '../pages/payment/result';
 import { ProjectsPage } from '../pages/projects/projects';
 
 import { UserService } from '../services/user.service';
@@ -34,6 +35,7 @@ import {ReportService} from "../services/report.service";
     LoginPage,
     ProjectsPage,
     ReportsPage
+    ResultPage
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import {ReportService} from "../services/report.service";
     ScanPage,
     ConfirmPage,
     LoginPage,
+    ResultPage
     ProjectsPage,
     ReportsPage
   ],

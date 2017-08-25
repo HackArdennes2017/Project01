@@ -14,7 +14,7 @@ const events = require('events');
 
 class ProductService {
 
-    
+
     constructor() {
     }
 
@@ -46,7 +46,6 @@ class ProductService {
      * Get product by its id
      *
      * @param {String} id
-     *
      * @public
      */
     getProductById(id, next) {

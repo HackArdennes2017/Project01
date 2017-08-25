@@ -8,8 +8,6 @@ const User = require('./user.class');
 const UserDAO = require('./user.dao');
 const Hash = require('../../shared/security/Hash.class');
 
-const ProjectService = require('../project/project.service');
-
 const AccountService = require('../account/account.service');
 
 const cfgManager = require('node-config-manager');
@@ -100,18 +98,17 @@ class UserService {
     /**
      * Get user by email
      *
-     * @param {String} appId
      * @param {String} email
      * @param {Function} next
      *
      * @public
      */
-    getUserByEmail(appId, email, next) {
+    getUserByEmail(email, next) {
         UserDAO.findOne({
             'authentication.credentials.login': email
         }, (err, user) => {
             if (err) return next(Boom.wrap(err));
-            if (!user) return next();
+            if (!user) return next(Boom.notFound(`User Mail ${email} doesn't exist`));
 
             return next(null, new User(user));
         });
@@ -301,29 +298,31 @@ class UserService {
     * @param {String} totalScore
     */
     getBalancedRate(userId, projectId, totalScore, next ){
-      UserDAO.find({
-        _id: UserDAO.createSafeMongoID(userId)
-      },{
-        rates: {
-          $elemMatch : {
-            projectId: projectId
-          }
-        }
-    }, (err, user) => {
-      if (err) return next(Boom.wrap(err));
-      if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
 
-      if (user.rates.length === 0) return next(Boom.notFound(`User ID ${userId} didn't rate project ID ${projectId} `));
+        UserDAO.findOne({
+          _id: UserDAO.createSafeMongoID(userId)
+        }, (err, user) => {
 
-      const score = user.score;
-      const rate = user.rates[0].rate;
+          if (err) return next(Boom.wrap(err));
+          if (!user) return next(Boom.notFound(`User ID ${userId} doesn't exist`));
+          if (!user.rates) return next(Boom.notFound(`User ID ${userId} didn't rate project ID ${projectId} `));
 
-      const balance = user.score / totalScore;
+          const rate = user.rates.find((rate) => {
 
-      return next(null, balance * rate);
+            return rate.projectId == projectId;
 
-    });
-  }
+          })
+
+          if (!rate) return next(Boom.notFound(`User ID ${userId} didn't rate project ID ${projectId} `));
+
+          const score = user.score;
+          const balance = user.score / totalScore;
+          
+          return next(null, balance * rate.rate);
+
+      });
+
+    }
 
 }
 
