@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { PaymentPage } from '../pages/payment/payment';
+import { ScanPage } from '../pages/payment/scan';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 
@@ -30,7 +30,7 @@ export class MyApp {
 
   appPages: PageObj[] = [
     { title: 'Home', component: HomePage, index: 1, icon: 'home' },
-    { title: 'Payment', component: PaymentPage, index: 10, icon: 'cash' }
+    { title: 'Payment', component: ScanPage, index: 10, icon: 'cash' }
   ];
   loggedInPages: PageObj[] = [
     { title: 'List', component: ListPage, index: 1, icon: 'list' }
@@ -40,6 +40,7 @@ export class MyApp {
     this.initializeApp();
 
     // decide which menu items should be hidden by current login status stored in local storage
+    /*
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
   
       this.enableMenu(hasLoggedIn === 'true');
@@ -56,6 +57,7 @@ export class MyApp {
           //}
         }
       });
+      */
 
     this.listenToLoginEvents();
   }

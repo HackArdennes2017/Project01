@@ -25,7 +25,7 @@ module.exports = {
 
             request.log(['info'], `< controller.register > New rate [projectId: ${id}]`);
 
-            return reply({status: true}).code(201);
+            return reply({status: true}).code(200);
         });
     },
     config: {
