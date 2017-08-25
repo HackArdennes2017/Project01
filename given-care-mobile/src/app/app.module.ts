@@ -1,4 +1,4 @@
-import { Storage } from '@ionic/storage';
+//import { Storage } from '@ionic/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -34,8 +34,8 @@ import { UserData } from '../providers/user-data/user-data';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserData,
-    Storage
+    UserData
+    //Storage
   ]
 })
 export class AppModule {}
