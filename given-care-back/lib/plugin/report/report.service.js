@@ -59,7 +59,11 @@ class ReportService {
             if (err && err.code === 11000) return next('error while creating report');
             if (err) return next(Boom.wrap(err));
 
-            return next(null, report);
+            UserService.updateScore(user._id.toString(), user.score + this._convertTypeToXP(report.type), (err, user) => {
+                if(err) return callback(Boom.wrap(err));
+
+                return next(null, report);
+            });
         });
     }
 
