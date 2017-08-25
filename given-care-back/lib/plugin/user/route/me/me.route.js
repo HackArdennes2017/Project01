@@ -9,9 +9,9 @@ module.exports = {
     method: 'GET',
     path: '/users/me',
     handler: (request, reply) => {
-        const {user} = request.auth.credentials;
 
-        reply({email : user.authentication.credentials.login});
+        reply(request.auth.credentials);
+
     },
     config: {
         tags: ['api', 'user', 'me'],

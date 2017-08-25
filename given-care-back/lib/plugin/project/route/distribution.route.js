@@ -3,7 +3,7 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const UserService = require('../../user/user.service');
+const ProjectService = require('../project.service');
 
 module.exports = {
     method: 'GET',
@@ -13,9 +13,10 @@ module.exports = {
 
         const {id} = request.params;
 
-        UserService.getTotalScore((err, total) => {
-          
-          reply({id, total});
+        ProjectService.getDistribution(id, (err, total) => {
+
+          reply({total: total});
+
         })
 
     },

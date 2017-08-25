@@ -5,11 +5,13 @@ const async = require('async');
 
 const Project = require('./project.class');
 const ProjectDAO = require('./project.dao');
+const UserService = require('../user/user.service');
+const UserDAO = require('../user/user.dao');
 
 const cfgManager = require('node-config-manager');
 
 
-class UserService {
+class ProjectService {
 
 
     constructor() {
@@ -56,6 +58,45 @@ class UserService {
     }
 
 
+
+    /**
+    * Get distribution rate for a given project
+    * @param {String} projectId
+    */
+    getDistribution(projectId, next){
+
+      UserService.getTotalScore((err, total) => {
+
+        if(err) return next(Boom.wrap(err));
+
+        UserDAO.find({score: { $gt : 0 }, 'rates.projectId': {$exists : 1} },(err, users) => {
+
+          if(err) return next(Boom.wrap(err));
+
+          async.map(users, (user, callback) => {
+
+            UserService.getBalancedRate(user._id, projectId, total, (err, rate) => {
+              if(err) return callback(err);
+              return callback(null, rate);
+            });
+
+          }, (err, rates) => {
+
+            const rateTotal = rates.reduce(function(sum, rate) {
+              return sum + rate;
+            }, 0);
+
+            return next(null, rateTotal);
+
+          })
+
+        });
+
+      });
+
+    }
+
+
 }
 
-module.exports = new UserService();
+module.exports = new ProjectService();
