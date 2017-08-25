@@ -6,35 +6,48 @@ const Boom = require('boom');
 const UserService = require('../../user.service');
 
 module.exports = {
-    method: 'GET',
+    method: 'PUT',
     path: '/users/me/projects/{id}/rate',
     handler: (request, reply) => {
+        const rate = request.payload.rate;
+
+        const isNew = request.payload.isNew
+
+        console.log(isNew);
+
+        const {id} = request.params;
         const {user} = request.auth.credentials;
 
-        if(!user.rates) return reply({status: false}).code(404);
+        request.log(['debug'], `START < controller.projects.rate > Params => ${rate}`);
 
-        const rate = user.rates.find((rate) => {
-          return rate.projectId == request.params.id;
+        UserService.rateProject(user._id, id, rate, isNew, (err, user) => {
+            if (err) return reply(Boom.wrap(err));
+
+            request.log(['info'], `< controller.register > New rate [projectId: ${id}]`);
+
+            return reply({status: true}).code(200);
         });
-
-        if(!rate) return reply({status: false}).code(404);
-
-        reply(rate).code(200);
     },
     config: {
-        tags: ['api', 'user', 'me'],
+        tags: ['api', 'user'],
         auth: 'UserStrategy',
         validate: {
             headers: Joi.object({
                 'authorization': Joi.string().required()
             }).options({allowUnknown: true}),
+            payload: {
+                rate: Joi.number().required().min(1).max(3),
+                isNew: Joi.boolean()
+            },
             params: Joi.object({
               'id': Joi.string().required()
             })
         },
         response: {
             status: {
-                200: Joi.object()
+                200: Joi.object({
+                    status: Joi.boolean()
+                })
             }
         }
     }

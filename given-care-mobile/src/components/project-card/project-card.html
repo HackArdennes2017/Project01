@@ -22,7 +22,7 @@
 
       <ion-row>
         <ion-col offset-1>
-          <rating *ngIf="project.rate" [ngStyle]="{'color': project.color}" class="star" [(ngModel)]="project.rate"
+          <rating [ngStyle]="{'color': project.color}" class="star" [(ngModel)]="project.rate"
               readOnly="false"
               max="3"
               emptyStarIconName="star-outline"
