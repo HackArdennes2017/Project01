@@ -3,37 +3,44 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const ProjectService = require('../project.service');
+const UserService = require('../../user/user.service');
 
 module.exports = {
     method: 'PUT',
-    path: '/projects/:id/rate',
+    path: '/projects/{id}/rate',
     handler: (request, reply) => {
-        const payload = request.payload;
+        const {rate} = request.payload;
 
-        request.log(['debug'], `START < controller.projects.rate > Params => ${JSON.stringify(payload)}`);
+        const {id} = request.params;
+        const {user} = request.auth.credentials;
 
-        ProjectService.create(request, payload, (err, user) => {
+        request.log(['debug'], `START < controller.projects.rate > Params => ${rate}`);
+
+        UserService.rateProject(user._id, id, rate, (err, user) => {
             if (err) return reply(Boom.wrap(err));
 
-            request.log(['info'], `< controller.register > New user [id: ${user._id}]`);
+            request.log(['info'], `< controller.register > New rate [projectId: ${id}]`);
 
             return reply({status: true}).code(201);
         });
     },
     config: {
         tags: ['api', 'user'],
-        auth: false,
+        auth: 'UserStrategy',
         validate: {
-            headers: Joi.object().options({allowUnknown: true}),
+            headers: Joi.object({
+                'authorization': Joi.string().required()
+            }).options({allowUnknown: true}),
             payload: {
-                email: Joi.string().email().required(),
-                password: Joi.string().min(8).required()
-            }
+                rate: Joi.number().required().min(1).max(3)
+            },
+            params: Joi.object({
+              'id': Joi.string().required()
+            })
         },
         response: {
             status: {
-                201: Joi.object({
+                200: Joi.object({
                     status: Joi.boolean()
                 })
             }

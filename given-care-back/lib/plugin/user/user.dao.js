@@ -19,7 +19,7 @@ class UserDAO extends DaoMongoBase {
             rates: Joi.array().items(
               Joi.object().keys({
                 projectId: Joi.string().required(),
-                rate: Joi.number().required().min(1).max(3)
+                rate: Joi.number().min(1).max(3)
               })
             ),
             accountId : Joi.string().required()

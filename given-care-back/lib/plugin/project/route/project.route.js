@@ -9,9 +9,11 @@ module.exports = {
     method: 'GET',
     path: '/projects',
     handler: (request, reply) => {
+        ProjectService.getAllProjects((err, projects) => {
+            if (err) return reply(Boom.wrap(err));
+            reply({data: projects});
+        });
 
-        reply(ProjectService.getAllProjects());
-        
     },
     config: {
         tags: ['api', 'user', 'me'],

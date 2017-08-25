@@ -47,11 +47,11 @@ class UserService {
         ProjectDAO.find({}, (err, projects) => {
             if (err) return next(Boom.wrap(err));
 
-            projects.map((project) => {
-              return new Project(project)
+            const projectObjects = projects.map((project) => {
+              return new Project(project);
             });
 
-            return next(null, projects);
+            return next(null, projectObjects);
         });
     }
 

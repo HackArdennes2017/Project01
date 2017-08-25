@@ -8,6 +8,8 @@ const User = require('./user.class');
 const UserDAO = require('./user.dao');
 const Hash = require('../../shared/security/Hash.class');
 
+const ProjectService = require('../project/project.service');
+
 const AccountService = require('../account/account.service');
 
 const cfgManager = require('node-config-manager');
@@ -56,23 +58,31 @@ class UserService {
             },
             createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {
 
-                const {createAccount, passwordEncrypted} = results;
+                ProjectService.getAllProjects((err, projects) => {
 
-                UserDAO.insertOne({
-                    accountNumber,
-                    authentication: {
-                        credentials: {
-                            login: email.toLowerCase(),
-                            password: passwordEncrypted
-                        }
-                    },
-                    accountId: createAccount._id.toString()
-                }, (err, user) => {
-                    if (err && err.code === 11000) return callback('email already exists');
-                    if (err) return callback(Boom.wrap(err));
+                  const {createAccount, passwordEncrypted} = results;
 
-                    return callback(null, user);
+                  const projectIds = projects.map((project) => { return { projectId: project._id.toString()} });
+
+                  UserDAO.insertOne({
+                      accountNumber,
+                      authentication: {
+                          credentials: {
+                              login: email.toLowerCase(),
+                              password: passwordEncrypted
+                          }
+                      },
+                      rates : projectIds,
+                      accountId: createAccount._id.toString()
+                  }, (err, user) => {
+                      if (err && err.code === 11000) return callback('email already exists');
+                      if (err) return callback(Boom.wrap(err));
+
+                      return callback(null, user);
+                  });
+
                 });
+
             }]
         }, (err, results) => {
             if (err) return next(Boom.wrap(err));

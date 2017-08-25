@@ -7,11 +7,14 @@ const ProjectService = require('../project.service');
 
 module.exports = {
     method: 'GET',
-    path: '/projects/:id',
+    path: '/projects/{id}',
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
 
-        reply(ProjectService.getProjectById(request.path.id));
+        ProjectService.getProjectById(request.params.id, (err, project) => {
+          if (err) return reply(Boom.wrap(err));
+          reply(project);
+        })
     },
     config: {
         tags: ['api', 'user', 'me'],
@@ -19,7 +22,10 @@ module.exports = {
         validate: {
             headers: Joi.object({
                 'authorization': Joi.string().required()
-            }).options({allowUnknown: true})
+            }).options({allowUnknown: true}),
+            params: Joi.object({
+              'id': Joi.string().required()
+            })
         },
         response: {
             status: {
