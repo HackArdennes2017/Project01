@@ -104,6 +104,7 @@ class ProductService {
                     const balance = account.balance - payment.totalAmount;
 
                     if(balance < 0 )
+                        return callback(Boom.forbidden('Insufficient funds'));
 
                     console.log("balance debitor : " + balance);
 
