@@ -3,15 +3,15 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const AccountService = require('./../account.service');
+const PaymentService = require('./../../payment.service.js');
 
 module.exports = {
     method: 'GET',
-    path: '/accounts/',
+    path: '/accounts/{id}',
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
 
-        AccountService.getAccountById(user.accountId, (err, account) => {
+        PaymentService.getPaymentById(request.params.id, (err, account) => {
             if(err) reply(Boom.wrap(err));
 
             return reply(account);

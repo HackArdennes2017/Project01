@@ -4,12 +4,12 @@ const Boom = require('boom');
 const async = require('async');
 const cryptiles = require('cryptiles');
 
-const AccountDAO = require('./account.dao.js');
+const AccountDAO = require('./payment.dao.js');
 const Hash = require('../../shared/security/Hash.class');
 
 const events = require('events');
 
-class AccountService {
+class PaymentService {
 
     
     constructor() {
@@ -57,4 +57,4 @@ class AccountService {
 
 }
 
-module.exports = new AccountService();
+module.exports = new PaymentService();

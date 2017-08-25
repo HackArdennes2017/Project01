@@ -66,7 +66,9 @@ class UserService {
                             password: passwordEncrypted
                         }
                     },
-                    accountId: createAccount._id.toString()
+                    accountId: createAccount._id.toString(),
+                    isMerchant : userData.isMerchant,
+                    merchantDescription : userData.isMerchant ? userData.merchantDescription : null
                 }, (err, user) => {
                     if (err && err.code === 11000) return callback('email already exists');
                     if (err) return callback(Boom.wrap(err));

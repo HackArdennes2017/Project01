@@ -28,7 +28,12 @@ module.exports = {
             headers: Joi.object().options({allowUnknown: true}),
             payload: {
                 email: Joi.string().email().required(),
-                password: Joi.string().min(8).required()
+                password: Joi.string().min(8).required(),
+                isMerchant : Joi.boolean().default(false).optional(),
+                merchantDescription : Joi.object().keys({
+                    companyName : Joi.string().required(),
+                    description : Joi.string().optional()
+                }).optional()
             }
         },
         response: {

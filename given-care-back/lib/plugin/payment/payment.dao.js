@@ -4,11 +4,14 @@ const Joi = require('joi');
 const DaoMongoBase = require('../../shared/base/mongo/DaoMongoBase');
 const COLLECTION_NAME = 'Account';
 
-class AccountDAO extends DaoMongoBase {
+class PaymentDAO extends DaoMongoBase {
     constructor() {
         super(COLLECTION_NAME, Joi.object().keys({
-            balance : Joi.number().default(50).optional(),
-            isGlobalPot : Joi.boolean().default(false).optional() //définit la cagnotte
+            totalAmount : Joi.number().required(),
+            tipAmount: Joi.number().default(0).optional(),
+            status: Joi.string.valid(['created', 'proceeded']),
+            debitorAccountId: Joi.string().required(),
+            creditorAccountId: Joi.string().required()
         }), [
             {
             name: '_id_',
@@ -20,4 +23,4 @@ class AccountDAO extends DaoMongoBase {
     }
 }
 
-module.exports = new AccountDAO();
+module.exports = new PaymentDAO();
