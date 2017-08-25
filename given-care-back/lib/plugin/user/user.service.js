@@ -8,6 +8,8 @@ const User = require('./user.class');
 const UserDAO = require('./user.dao');
 const Hash = require('../../shared/security/Hash.class');
 
+const AccountService = require('../account/account.service');
+
 const cfgManager = require('node-config-manager');
 
 const uuidv4 = require('uuid/v4');
@@ -49,9 +51,12 @@ class UserService {
             passwordEncrypted: (callback) => {
                 Hash.create(password, callback);
             },
-            createUser: ['passwordEncrypted', (results, callback) => {
+            createAccount: (callback) => {
+                AccountService.create(request, {balance : 0}, callback);
+            },
+            createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {
 
-                const {passwordEncrypted} = results;
+                const {createAccount, passwordEncrypted} = results;
 
                 UserDAO.insertOne({
                     accountNumber,
@@ -60,7 +65,8 @@ class UserService {
                             login: email.toLowerCase(),
                             password: passwordEncrypted
                         }
-                    }
+                    },
+                    accountId: createAccount._id.toString()
                 }, (err, user) => {
                     if (err && err.code === 11000) return callback('email already exists');
                     if (err) return callback(Boom.wrap(err));

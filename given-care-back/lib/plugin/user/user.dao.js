@@ -15,7 +15,8 @@ class UserDAO extends DaoMongoBase {
                     login: Joi.string().email().lowercase().required(),
                     password: Joi.binary().encoding('base64').required()
                 }
-            }
+            },
+            accountId : Joi.string().required()
         }), [
             {
             name: '_id_',
