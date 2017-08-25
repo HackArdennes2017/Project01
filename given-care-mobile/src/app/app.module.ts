@@ -28,6 +28,7 @@ import { HttpModule } from '@angular/http';
 import {ReportsPage} from "../pages/reports/reports";
 import {ReportService} from "../services/report.service";
 import {AccountService} from "../services/account.service";
+import {ProductService} from "../services/product.service";
 
 // Import ionic2-rating module
 import { Ionic2RatingModule } from 'ionic2-rating';
@@ -74,7 +75,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     BackendService,
     ReportService,
     AccountService,
-    ProjectService
+    ProductService
     //Storage
   ]
 })

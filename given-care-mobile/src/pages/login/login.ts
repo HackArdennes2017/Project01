@@ -23,14 +23,15 @@ export class LoginPage {
       .subscribe(
         (response) => {
           this.userData.setLoggedIn(true);
-          this.userData.setJwtToken(response.headers.get('authorization'));
-          this.authSuccess();
-          this.events.publish('user:login');
-          this.userService.me().then((resp:any) => {
-            this.userData.setEmail(resp.json().email);
-          });
-          this.accountService.getAccount().then((account:any) => {
-            this.userData.setAmount(account.json().balance);
+          this.userData.setJwtToken(response.headers.get('authorization')).then(() => {
+            this.authSuccess();
+            this.events.publish('user:login');
+            this.userService.me().then((resp:any) => {
+              this.userData.setEmail(resp.json().email);
+            });
+            this.accountService.getAccount().then((account:any) => {
+              this.userData.setAmount(account.json().balance);
+            });
           });
         },
         (err) => {

@@ -6,6 +6,8 @@ import { HomePage } from '../home/home';
 
 import { UserData } from '../../providers/user-data/user-data';
 
+import { ProductService } from '../../services/product.service';
+
 @Component({
   selector: 'page-payment-confirm',
   templateUrl: 'confirm.html'
@@ -16,9 +18,9 @@ export class ConfirmPage {
   amount:number = 0;
   products = [];
   tipAmount: number = 0.5;
-  total:number = this.totalProducts() + this.tipAmount;
+  total:number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userData:UserData) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userData:UserData, private productService:ProductService) {
     // Get user amount
     userData.getAmount().then(amount => this.amount = amount);
     // Product from QR code
@@ -26,7 +28,12 @@ export class ConfirmPage {
       quantity: parseInt(navParams.get("productCount")),
       label: navParams.get("productLabel"),
       amount: parseFloat(navParams.get("productAmount")),
-    });
+      id: navParams.get("productId")
+    });    
+  }
+
+  ngOnInit() {
+    this.total = this.totalProducts() + this.tipAmount;
   }
 
   decrease(){
@@ -58,15 +65,17 @@ export class ConfirmPage {
   }
 
   validate(){
-    // Decrease local user account
-    this.userData.setAmount(this.amount - (this.totalProducts() + this.tipAmount));
-    // Go to result page
-    this.navCtrl.push(ResultPage,{
-      tipAmount: this.tipAmount,
-      productCount: this.products[0].quantity,
-      productLabel: this.products[0].label,
-      productAmount: this.products[0].amount
-    });
+    this.productService.pay(this.products[0].id, this.tipAmount).then(() => {
+      // Decrease local user account
+      this.userData.setAmount(this.amount - (this.totalProducts() + this.tipAmount));
+      // Go to result page
+      this.navCtrl.push(ResultPage,{
+        tipAmount: this.tipAmount,
+        productCount: this.products[0].quantity,
+        productLabel: this.products[0].label,
+        productAmount: this.products[0].amount
+      });
+    });     
   }
 
 }
