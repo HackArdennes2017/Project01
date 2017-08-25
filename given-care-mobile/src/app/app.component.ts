@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ScanPage } from '../pages/payment/scan';
+import { LoginPage } from '../pages/login/login';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 
@@ -40,7 +41,7 @@ export class MyApp {
     this.initializeApp();
 
     // decide which menu items should be hidden by current login status stored in local storage
-    /*
+    
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
   
       this.enableMenu(hasLoggedIn === 'true');
@@ -53,11 +54,11 @@ export class MyApp {
           //if(! this.userData.hasPassedTutorial) {
           //  this.rootPage = TutorialPage;
           //} else {
-          this.rootPage = WelcomePage;
+          this.rootPage = LoginPage;
           //}
         }
       });
-      */
+      
 
     this.listenToLoginEvents();
   }
