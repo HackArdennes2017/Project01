@@ -11,7 +11,9 @@ class ProjectDAO extends DaoMongoBase {
         super(COLLECTION_NAME, Joi.object().keys({
             name: Joi.string().required(),
             description: Joi.string().required(),
-            icon: Joi.string()
+            icon: Joi.string(),
+            fullDescription: Joi.string(),
+            color: Joi.string()
         }), [
             {
               name: '_id_',

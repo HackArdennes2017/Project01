@@ -12,7 +12,10 @@ import { ConfirmPage } from '../pages/payment/confirm';
 import { ResultPage } from '../pages/payment/result';
 import { ProjectsPage } from '../pages/projects/projects';
 
+import { ProjectCardComponent } from '../components/project-card/project-card';
+
 import { UserService } from '../services/user.service';
+import { ProjectService } from '../services/project.service';
 import { BackendService } from '../services/backend.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,6 +27,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 import {ReportsPage} from "../pages/reports/reports";
 import {ReportService} from "../services/report.service";
+import {AccountService} from "../services/account.service";
+import {ProductService} from "../services/product.service";
+
+// Import ionic2-rating module
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 @NgModule({
   declarations: [
@@ -34,6 +42,7 @@ import {ReportService} from "../services/report.service";
     ConfirmPage,
     LoginPage,
     ProjectsPage,
+    ProjectCardComponent,
     ReportsPage,
     ResultPage
   ],
@@ -41,7 +50,8 @@ import {ReportService} from "../services/report.service";
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,7 +63,8 @@ import {ReportService} from "../services/report.service";
     LoginPage,
     ResultPage,
     ProjectsPage,
-    ReportsPage
+    ReportsPage,
+    ProjectCardComponent
   ],
   providers: [
     StatusBar,
@@ -62,7 +73,9 @@ import {ReportService} from "../services/report.service";
     UserData,
     UserService,
     BackendService,
-    ReportService
+    ReportService,
+    AccountService,
+    ProductService
     //Storage
   ]
 })

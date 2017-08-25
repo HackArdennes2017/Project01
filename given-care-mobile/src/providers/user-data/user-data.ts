@@ -55,7 +55,7 @@ export class UserData {
   }
 
   setJwtToken(token) {
-    this.storage.set(this.JWT_TOKEN, token);
+    return this.storage.set(this.JWT_TOKEN, token);
   }
 
   getAmount() {

@@ -23,6 +23,17 @@ export class UserService {
   me() {
     return this.back.getAuthenticated('/users/me');
   }
-  
+
+  getRate(projectId) {
+    return this.back.getAuthenticated('/users/me/projects/' + projectId + '/rate');
+  }
+
+  setRate(projectId, rate, isNew) {
+    return this.back.putAuthenticated('/users/me/projects/' + projectId + '/rate', {
+      rate,
+      isNew
+    });
+  }
+
 
 }

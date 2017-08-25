@@ -9,9 +9,8 @@ export class BackendService {
   baseUrl = '';
 
   constructor(private http: Http, private userData:UserData) {
-    //this.baseUrl = 'http://172.16.24.70:5000'; // Mat
-    this.baseUrl = 'http://localhost:5000';
-
+    this.baseUrl = 'http://172.16.24.70:5000'; // Mat
+    //this.baseUrl = 'http://localhost:5000';
   }
 
   getAuthenticated(uri) {
@@ -47,6 +46,24 @@ export class BackendService {
     return new Promise((resolve, reject) => {
       this.userData.getJwtToken().then(token => {
         this.http.post(`${this.baseUrl}${uri}`, data, {
+          headers: new Headers({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          })}).subscribe(
+            response => {
+              this.userData.setJwtToken(response.headers.get('authorization'));
+              resolve(response)
+            },
+            err => reject(err)
+          );
+      });
+    });
+  }
+
+  putAuthenticated(uri, data) {
+    return new Promise((resolve, reject) => {
+      this.userData.getJwtToken().then(token => {
+        this.http.put(`${this.baseUrl}${uri}`, data, {
           headers: new Headers({
             'Authorization': token,
             'Content-Type': 'application/json'

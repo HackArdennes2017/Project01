@@ -13,6 +13,7 @@ import { ProjectsPage } from '../pages/projects/projects';
 
 import { UserData } from '../providers/user-data/user-data';
 import {ReportsPage} from "../pages/reports/reports";
+import {AccountService} from '../services/account.service';
 
 export interface PageObj {
   title: string;
@@ -40,7 +41,7 @@ export class MyApp {
     { title: 'Reports', component: ReportsPage, index: 30, icon: 'disc'}
   ];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events, public userData: UserData) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events, public userData: UserData, public accountService:AccountService) {
     this.initializeApp();
 
     // decide which menu items should be hidden by current login status stored in local storage
@@ -51,6 +52,9 @@ export class MyApp {
       this.enableMenu(hasLoggedIn);
 
         if(hasLoggedIn === true) {
+          this.accountService.getAccount().then((account:any) => {
+            userData.setAmount(account.json().balance);
+          });
           this.rootPage = HomePage;
         } else {
           //if(! this.userData.hasPassedTutorial) {

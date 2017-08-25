@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ProjectService } from '../../services/project.service'
 
 @Component({
   selector: 'page-projects',
@@ -7,8 +8,23 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ProjectsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    
+  projects;
+  index;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public projectService: ProjectService) {
+
+  }
+
+  ngOnInit(){
+    this.index = 0;
+
+    this.projectService.getAll().then((resp: any) => {
+      this.projects = resp.json().data;
+    })
+
+  }
+
+  next(){
+    this.index++;
   }
 
 }

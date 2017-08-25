@@ -3,11 +3,11 @@
 const Joi = require('joi');
 const Boom = require('boom');
 
-const UserService = require('../../user/user.service');
+const UserService = require('../../user.service');
 
 module.exports = {
     method: 'PUT',
-    path: '/projects/{id}/rate',
+    path: '/users/me/projects/{id}/rate',
     handler: (request, reply) => {
         const rate = request.payload.rate;
 
