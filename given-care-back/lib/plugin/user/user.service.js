@@ -54,7 +54,7 @@ class UserService {
                 Hash.create(password, callback);
             },
             createAccount: (callback) => {
-                AccountService.create(request, {balance : 0}, callback);
+                AccountService.create(request, {balance : 50}, callback);
             },
             createUser: ['createAccount', 'passwordEncrypted', (results, callback) => {
 
