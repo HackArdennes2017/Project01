@@ -18,40 +18,31 @@ module.exports = function (server, options) { // jshint ignore:line
             async.auto({
                 getJWTData: (callback) => {
                     if (authorization) {
+
                         return JWT.getData(request, callback);
                     }
                     else {
-                        callback(null)
+                        callback()
                     }
                 },
-                validateAuthenticationType: ['getJWTData', (results, callback) => {
-                    if (authorization) {
-                        const jwtData = results.getJWTData;
-
-                        const data = (jwtData ? jwtData.data : null);
-
-                        return callback(null, data);
-                    }
-                    else {
-                        callback(null);
-                    }
-                }],
                 getUser: ['getJWTData', (results, callback) => {
                     if (authorization) {
                         const {getJWTData} = results;
 
                         const userId = getJWTData.userId || '';
 
+
                         UserService.getUserById(userId.toString(), callback);
                     }
                     else {
-                        callback(null);
+                        callback();
                     }
                 }]
             }, (err, results) => {
                 if (err) return reply(Boom.wrap(err));
 
                 const {getUser} = results;
+
 
                 return reply.continue({
                     credentials: {
@@ -70,7 +61,7 @@ module.exports = function (server, options) { // jshint ignore:line
                         return JWT.getData(request, callback);
                     }
                     else {
-                        callback(null);
+                        callback();
                     }
                 },
                 newJWT: ['getJWTData', (results, callback) => {
@@ -82,7 +73,7 @@ module.exports = function (server, options) { // jshint ignore:line
                         return JWT.create(request, userId.toString(), data, callback);
                     }
                     else {
-                        callback (null);
+                        callback ();
                     }
                 }]
             }, (err, results) => {

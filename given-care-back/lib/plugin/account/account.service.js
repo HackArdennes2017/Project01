@@ -76,6 +76,18 @@ class AccountService {
     }
 
 
+    getGlobalPot(next) {
+        AccountDAO.findOne({
+            isGlobalPot: true
+        }, (err, account) => {
+            if (err) return next(Boom.wrap(err));
+            if (!account) return next();
+
+            return next(null, account);
+        });
+    }
+
+
 }
 
 module.exports = new AccountService();

@@ -110,7 +110,7 @@ class ProductService {
                     AccountService.updateAccountById(debitorAccountId, {balance}, callback);
                 })
             }],
-            processCredit : ['payment', (results, callback) => {
+            processCreditMerchant : ['payment', (results, callback) => {
                 const {merchant} = results;
                 const creditorAccountId = merchant.accountId;
                 const {payment} = results;
@@ -119,14 +119,32 @@ class ProductService {
                     if(err) return callback(Boom.wrap(err));
                     if(!account) return callback(Boom.badData('creditor not found'));
 
-                    const balance = account.balance - payment.totalAmount;
+                    const balance = account.balance + payment.totalAmount - (payment.tipAmount ? payment.tipAmount : 0);
 
                     console.log("balance creditor : " + balance);
 
                     AccountService.updateAccountById(creditorAccountId, {balance}, callback);
                 })
             }],
-            insertPayment : ['processDebit', 'processCredit', (results, callback) => {
+            processCreditGlobalPot : ['payment', (results, callback) => {
+                const {payment} = results;
+
+                if(payment.tipAmount) {
+                    AccountService.getGlobalPot((err, account) => {
+                        if (err) return callback(Boom.wrap(err));
+                        if (!account) return callback(Boom.badData('creditor not found'));
+
+                        const balance = account.balance + payment.totalAmount;
+
+                        console.log("balance pot : " + balance);
+
+                        AccountService.updateAccountById(account._id.toString(), {balance}, callback);
+                    });
+                } else
+                    return callback();
+
+            }],
+            insertPayment : ['processDebit', 'processCreditMerchant', 'processCreditGlobalPot', (results, callback) => {
 
                 const {payment} = results;
                 payment.status = 'proceeded';

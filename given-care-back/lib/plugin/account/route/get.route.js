@@ -11,7 +11,7 @@ module.exports = {
     handler: (request, reply) => {
         const {user} = request.auth.credentials;
 
-        AccountService.getAccountById(user.accountId, (err, account) => {
+        AccountService.getAccountById(user.accountId.toString(), (err, account) => {
             if(err) reply(Boom.wrap(err));
 
             return reply(account);
