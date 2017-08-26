@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button end ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Projects</ion-title>
@@ -13,7 +13,7 @@
 
     <ion-slide *ngFor="let project of projects">
 
-      <project-card [project]="project" (next)="next()">
+      <project-card [project]="project" (next)="next()" [last]="slides.isEnd()">
 
       </project-card>
 

@@ -1,9 +1,19 @@
 <ion-card>
 
   <ion-item>
-    <h2 [ngStyle]="{'color': project.color}"><strong>{{project.name}}</strong></h2>
-    <p>{{project.description}}</p>
- </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h2 [ngStyle]="{'color': project.color}"><strong>{{project.name}}</strong></h2>
+          <p>{{project.description}}</p>
+        </ion-col>
+
+        <ion-col offset-1>
+          <button class="item-right" ion-button *ngIf="!last" [ngStyle]="{'background-color': project.color}" style="opacity: 0.85;" (click)="toggleNext()">Passer</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 
   <img *ngIf="project.icon" [src]="'assets/img/'+project.icon"/>
 
@@ -28,14 +38,6 @@
               nullable="false"
               (ngModelChange)="rate($event)">
           </rating>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col>
-
-          <button ion-button [ngStyle]="{'background-color': project.color}" style="opacity: 0.85;" (click)="toggleNext()">Passer</button>
-
         </ion-col>
       </ion-row>
 
