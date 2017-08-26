@@ -13,7 +13,7 @@
 
     <ion-slide *ngFor="let project of projects">
 
-      <project-card [project]="project" (next)="next()">
+      <project-card [project]="project" (next)="next()" [last]="slides.isEnd()">
 
       </project-card>
 

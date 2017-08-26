@@ -15,6 +15,7 @@ import { ProjectService } from '../../services/project.service';
 export class ProjectCardComponent {
 
   @Input() project;
+  @Input() last;
   @Output() next = new EventEmitter();
   isNew = false;
 
@@ -49,7 +50,6 @@ export class ProjectCardComponent {
   }
 
   rate(event){
-    console.log(this.project);
     this.userService.setRate(this.project._id, this.project.rate, this.isNew).then((res) => {
       this.isNew = false;
       //this.getDistribution();
