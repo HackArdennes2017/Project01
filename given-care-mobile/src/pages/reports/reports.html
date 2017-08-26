@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content style="background-image: url('assets/map.svg'); background-repeat:no-repeat;">
-  <div style="padding: 10px; position:fixed; width: 100%; bottom:90px;">
+  <div *ngIf="!cameraOpen" style="padding: 10px; position:fixed; width: 100%; bottom:90px;">
   <ion-grid *ngIf="!emergency">
       <ion-row>
         <button (click)="emergencyCall()" style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button color="danger" outline ion-col col-12>
@@ -18,19 +18,19 @@
 
         <div style="margin-top : 20px;">
           <ion-row>
-          <button (click)='sendReport("restroomFull")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
+          <button (click)='prepareReport("restroomFull")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
               Les toilettes n'ont plus de papier/copeaux
             </button>
           </ion-row>
 
           <ion-row>
-            <button (click)='sendReport("trashCanFull")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
+            <button (click)='prepareReport("trashCanFull")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
               La poubelle est pleine
             </button>
           </ion-row>
 
           <ion-row>
-            <button (click)='sendReport("unknown")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
+            <button (click)='prepareReport("unknown")' style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button outline ion-col col-12>
               Autre
             </button>
           </ion-row>
@@ -41,6 +41,20 @@
       <img style="position: absolute; right: 30px; bottom: 50px;" [src]="'/assets/david.png'" />
     </ion-grid>
 
+  </div>
+  <div *ngIf="cameraOpen">
+    <div *ngIf="!photoTaken">
+      <video width="640" height="480" autoplay controls #videoPlayer>
+        <source src="{{videoSrc}}" type="video/mp4" />
+        Browser not supported
+      </video>
+
+      <button ion-button (click)="snap()">Take Photo</button>
+    </div>
+    <div [style.display]="photoTaken ? '' : 'none'">
+      <canvas width="640" height="480" #canvasImg></canvas>
+      <button ion-button (click)="sendReport()">Send Photo</button>
+    </div>
   </div>
 </ion-content>
 
