@@ -9,11 +9,11 @@
 
 <ion-content>
 
-  <ion-slides *ngIf="projects">
+  <ion-slides *ngIf="projects" #slides style="height: auto;!important">
 
     <ion-slide *ngFor="let project of projects">
 
-      <project-card [project]="project">
+      <project-card [project]="project" (next)="next()">
 
       </project-card>
 

@@ -26,8 +26,16 @@
               halfStarIconName="star-half"
               starIconName="star"
               nullable="false"
-              (ngModelChange)="rate($event)">  <!--use it when you need to do something when user clicks on a star. in case you only need to change ngModel property, this property can be ommited.-->
+              (ngModelChange)="rate($event)">
           </rating>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+          <button ion-button [ngStyle]="{'background-color': project.color}" style="opacity: 0.85;" (click)="toggleNext()">Passer</button>
+
         </ion-col>
       </ion-row>
 
