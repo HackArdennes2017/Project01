@@ -16,7 +16,7 @@ class UserDAO extends DaoMongoBase {
                     password: Joi.binary().encoding('base64').required()
                 }
             },
-            score: Joi.number().optional().min(0),
+            score: Joi.number().optional().min(0).default(0),
             accountId : Joi.string().required(),
             settings : Joi.object().keys({
               autoTip: Joi.number().min(0)

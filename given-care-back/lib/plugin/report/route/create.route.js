@@ -14,12 +14,16 @@ module.exports = {
 
         request.log(['debug'], `START < controller.users.create > Params => ${JSON.stringify(payload)}`);
 
-        ReportService.create(request, user, payload, (err, report) => {
+        ReportService.create(request, user, payload, (err, res) => {
             if (err) return reply(Boom.wrap(err));
+            const {report, gain, totalXP} = res;
+
+            console.log(res);
+            console.log(totalXP);
 
             request.log(['info'], `< controller.product > New product [id: ${report._id}]`);
 
-            return reply({status: true}).code(201);
+            return reply({status: true, gain, totalXP}).code(201);
         });
     },
     config: {
@@ -42,7 +46,9 @@ module.exports = {
         response: {
             status: {
                 201: Joi.object({
-                    status: Joi.boolean()
+                    status: Joi.boolean(),
+                    gain : Joi.number(),
+                    totalXP : Joi.number()
                 })
             }
         }
