@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ProjectService } from '../../services/project.service';
 
@@ -15,6 +15,7 @@ import { ProjectService } from '../../services/project.service';
 export class ProjectCardComponent {
 
   @Input() project;
+  @Output() next = new EventEmitter();
   isNew = false;
 
   constructor(public userService: UserService, public projectService: ProjectService)
@@ -51,8 +52,13 @@ export class ProjectCardComponent {
     console.log(this.project);
     this.userService.setRate(this.project._id, this.project.rate, this.isNew).then((res) => {
       this.isNew = false;
-      this.getDistribution();
+      //this.getDistribution();
+      this.next.emit();
     });
+  }
+
+  toggleNext(){
+    this.next.emit();
   }
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProjectService } from '../../services/project.service'
 
@@ -10,6 +10,8 @@ export class ProjectsPage {
 
   projects;
   index;
+  @ViewChild('slides') slides;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public projectService: ProjectService) {
 
   }
@@ -24,7 +26,11 @@ export class ProjectsPage {
   }
 
   next(){
-    this.index++;
+    if(!this.slides.isEnd()){
+        this.slides.slideNext();
+    } else {
+
+    }
   }
 
 }
