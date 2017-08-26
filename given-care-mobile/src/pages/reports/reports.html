@@ -9,9 +9,9 @@
 
 <ion-content style="background-image: url('assets/map.svg'); background-repeat:no-repeat;">
   <div style="padding: 10px; position:fixed; width: 100%; bottom:90px;">
-  <ion-grid>
+  <ion-grid *ngIf="!emergency">
       <ion-row>
-        <button style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button color="danger" outline ion-col col-12>
+        <button (click)="emergencyCall()" style="border-color: grey; background-color: #F5F5F5; text-transform: none;" ion-button color="danger" outline ion-col col-12>
           Appel d'urgence (tout abus sera sanctionné)
         </button>
       </ion-row>
@@ -36,6 +36,11 @@
           </ion-row>
         </div>
     </ion-grid>
+
+    <ion-grid *ngIf="emergency">
+      <img style="position: absolute; right: 30px; bottom: 50px;" [src]="'/assets/david.png'" />
+    </ion-grid>
+
   </div>
 </ion-content>
 

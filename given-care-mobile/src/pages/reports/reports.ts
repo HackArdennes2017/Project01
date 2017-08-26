@@ -10,12 +10,19 @@ import { AlertController } from 'ionic-angular';
 })
 export class ReportsPage {
 
+  emergency=false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public reportService : ReportService,
               public alertCtrl:AlertController) {
 
   }
 
-
+  emergencyCall(){
+    this.emergency = true;
+    setTimeout(() => {
+      this.emergency = false;
+    }, 3000);
+  }
 
   sendReport(type:string){
     if ("geolocation" in navigator) {
@@ -35,9 +42,9 @@ export class ReportsPage {
   justSendReport(obj){
     this.reportService.send(obj)
       .then(
-        (response) => {
-          console.log("done");
-          this.showOkAlert();
+        (response:any) => {
+          const data = response.json();
+          this.showOkAlert(data.totalXP, data.gain);
 
         },
         (err) => {
@@ -48,10 +55,10 @@ export class ReportsPage {
   }
 
 
-  showOkAlert() {
+  showOkAlert(totalXP, gain) {
     let alert = this.alertCtrl.create({
       title: 'Merci pour votre retour!',
-      subTitle: 'Nous allons régler le problème au plus vite! Merci encore pour votre implication',
+      subTitle: 'Nous allons régler le problème au plus vite! Votre implication vous rapporte ' + gain + ' points ! Bravo, vous disposez de ' + totalXP + ' points !',
       buttons: ['OK']
     });
     alert.present();
