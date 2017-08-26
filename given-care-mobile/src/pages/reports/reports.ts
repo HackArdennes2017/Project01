@@ -4,6 +4,7 @@ import {HomePage} from "../home/home";
 import { ReportService } from '../../services/report.service';
 import { AlertController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
 @Component({
   selector: 'page-reports',
@@ -14,7 +15,7 @@ export class ReportsPage {
   emergency=false;
   cameraOpen=false;
   photoTaken=false;
-  videoSrc='';
+  videoSrc:any='';
   type='';
 
   @ViewChild('videoPlayer') videoplayer: any;
@@ -26,7 +27,7 @@ export class ReportsPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public reportService : ReportService,
-              public alertCtrl:AlertController) {
+              public alertCtrl:AlertController, private _sanitizer: DomSanitizer) {
 
   }
 
@@ -46,7 +47,7 @@ export class ReportsPage {
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       // Not adding `{ audio: true }` since we only want video now
       navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        self.videoSrc = window.URL.createObjectURL(stream);
+        self.videoSrc = self._sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(stream));
         self.toggleVideo();
       });
     }
