@@ -4,7 +4,7 @@ import {HomePage} from "../home/home";
 import { ReportService } from '../../services/report.service';
 import { AlertController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { DomSanitizer, SafeValue } from '@angular/platform-browser'
 
 @Component({
   selector: 'page-reports',
@@ -15,7 +15,7 @@ export class ReportsPage {
   emergency=false;
   cameraOpen=false;
   photoTaken=false;
-  videoSrc:any='';
+  videoSrc:SafeValue;
   type='';
 
   @ViewChild('videoPlayer') videoplayer: any;
