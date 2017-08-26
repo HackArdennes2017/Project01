@@ -47,7 +47,7 @@ export class ReportsPage {
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       // Not adding `{ audio: true }` since we only want video now
       navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        self.videoSrc = self._sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(stream));
+        self.videoplayer.nativeElement.src = window.URL.createObjectURL(stream);
         self.toggleVideo();
       });
     }
