@@ -13,7 +13,7 @@ module.exports = {
         const {id} = request.params;
 
         ProductService.payProduct(request, id, user, request.payload, (err, res) => {
-            if(err) reply(Boom.wrap(err));
+            if(err) return reply(Boom.wrap(err));
 
             return reply({status : true});
         });
