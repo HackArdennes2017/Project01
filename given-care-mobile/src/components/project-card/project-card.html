@@ -12,7 +12,7 @@
     <p class="justify" [innerHTML]="project.fullDescription"></p>
 
     <p class="justify" *ngIf="project.distribution">
-      Projection des dons : <strong>{{project.distribution}} €</strong>
+      Projection des dons : <strong>{{project.distribution.toFixed(2)}} €</strong>
     </p>
 
     <ion-grid>
