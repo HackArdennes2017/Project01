@@ -1,29 +1,11 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Connexion</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content>    
-    <div padding>
-      <ion-list>
-        <ion-item>
-            <ion-label stacked>Adresse e-mail</ion-label>
-          <ion-input #email type="email"  value=""></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-label stacked>Mot de passe</ion-label>
-          <ion-input #password type="password"></ion-input>
-        </ion-item>
-      </ion-list>
-      <button ion-button block (click)="login(email.value,password.value)">Se connecter</button>
-      <button ion-button outline (click)="register(email.value, password.value)" block>Créer un compte</button>
-    </div>
-    <div padding class="error">
-      {{ message }}
-    </div>
+<ion-content>
+    <ion-slides>
+        <ion-slide>
+          Check this slide!
+        </ion-slide>
+    </ion-slides>
 </ion-content>
+
+<ion-footer padding>
+    <button ion-button outline (click)="register()" block>Je teste</button>
+</ion-footer>
