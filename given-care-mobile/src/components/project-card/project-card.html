@@ -7,10 +7,6 @@
           <h2 [ngStyle]="{'color': project.color}"><strong>{{project.name}}</strong></h2>
           <p>{{project.description}}</p>
         </ion-col>
-
-        <ion-col offset-1>
-          <button class="item-right" ion-button *ngIf="!last" [ngStyle]="{'background-color': project.color}" style="opacity: 0.85;" (click)="toggleNext()">Passer</button>
-        </ion-col>
       </ion-row>
     </ion-grid>
   </ion-item>
@@ -29,7 +25,7 @@
 
       <ion-row>
         <ion-col>
-          <rating [ngStyle]="{'color': project.color}" class="star" [(ngModel)]="project.rate"
+          <rating [ngStyle]="{'color': project.color}" style="text-align: center;" class="star" [(ngModel)]="project.rate"
               readOnly="false"
               max="3"
               emptyStarIconName="star-outline"

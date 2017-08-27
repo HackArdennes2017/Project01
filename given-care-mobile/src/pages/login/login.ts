@@ -40,7 +40,11 @@ export class LoginPage {
       );
   }
   
-  register(email, password) {
+  register() {
+    // Generate a user/password
+    const randomString = (len) => Math.random().toString(36).substr(2, len);
+    const email = `${randomString(5)}.${randomString(8)}@${randomString(5)}.com`;
+    const password = randomString(10);
     this.message = '';
     this.userService.register(email, password)
       .subscribe(
@@ -56,5 +60,9 @@ export class LoginPage {
   authSuccess() {
     this.navCtrl.setRoot(HomePage);
   }
+
+
+  
+  
 
 }

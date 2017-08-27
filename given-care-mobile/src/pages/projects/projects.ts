@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProjectService } from '../../services/project.service'
 
@@ -9,28 +9,17 @@ import { ProjectService } from '../../services/project.service'
 export class ProjectsPage {
 
   projects;
-  index;
-  @ViewChild('slides') slides;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public projectService: ProjectService) {
 
   }
 
   ngOnInit(){
-    this.index = 0;
 
     this.projectService.getAll().then((resp: any) => {
       this.projects = resp.json().data;
     })
 
-  }
-
-  next(){
-    if(!this.slides.isEnd()){
-        this.slides.slideNext();
-    } else {
-
-    }
   }
 
 }
