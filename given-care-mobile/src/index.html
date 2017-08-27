@@ -17,15 +17,6 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
 
-  <!-- un-comment this code to enable service worker-->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('service worker installed'))
-        .catch(err => console.error('Error', err));
-    }
-  </script>
-
   <script type="text/javascript">
     var candidate_id = '59a1a14282819f67336f2af7';
     window.addEventListener('load', function() {
@@ -47,10 +38,10 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  
+
     ga('create', 'UA-105376957-1', 'auto');
     ga('send', 'pageview');
-  
+
   </script>
 
   <link href="build/main.css" rel="stylesheet">
