@@ -9,16 +9,14 @@
 
 <ion-content>
 
-  <ion-slides *ngIf="projects" #slides style="height: auto;!important">
+  <ion-grid>
 
-    <ion-slide *ngFor="let project of projects">
+    <ion-row *ngFor="let project of projects">
 
-      <project-card [project]="project" (next)="next()" [last]="slides.isEnd()">
+        <project-card [project]="project"> </project-card>
 
-      </project-card>
+    </ion-row>
 
-    </ion-slide>
-
-  </ion-slides>
+  </ion-grid>
 
 </ion-content>
