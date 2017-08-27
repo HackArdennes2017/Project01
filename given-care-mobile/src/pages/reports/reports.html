@@ -73,7 +73,7 @@
           Browser not supported
         </video>
 
-        <button ion-button (click)="snap()">Take Photo</button>
+        <button style="position : absolute; bottom : 10px; text-align: center;" ion-button (click)="snap()">Take Photo</button>
       </ion-row>
       <ion-row [style.display]="photoTaken ? '' : 'none'">
         <canvas width="320px" height="240px" #canvasImg></canvas>
