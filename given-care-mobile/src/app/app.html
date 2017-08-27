@@ -16,6 +16,12 @@
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
+
+      <button ion-item menuClose (click)="logout(p)" class="menu-item">
+        <ion-icon item-left name="close-circle"></ion-icon>
+        Déconnexion
+      </button>
+
     </ion-list>
 
   </ion-content>
