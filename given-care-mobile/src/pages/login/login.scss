@@ -1,3 +1,27 @@
 .error{
   color: red;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  ion-app {
+    flex-grow: 1;
+    position: static !important;
+    height: auto !important;
+  }
+
+  #pl3b15c173-container {
+    position: static;
+    background-color: #ffea94;
+
+    .pl3b15c173-button{
+      background-color: #ffea94;
+      border: 1px solid #fe6600; 
+      color: #fe6600;
+      border-radius: 5px;
+    }
+  }
+}
