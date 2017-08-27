@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
+import { ConfirmPage } from '../payment/confirm';
 
 import { UserService } from '../../services/user.service';
 import { AccountService } from '../../services/account.service';
@@ -23,14 +23,15 @@ export class LoginPage {
       .subscribe(
         (response) => {
           this.userData.setLoggedIn(true);
+          this.userData.setAmount(0);
           this.userData.setJwtToken(response.headers.get('authorization')).then(() => {
-            this.authSuccess();
             this.events.publish('user:login');
             this.userService.me().then((resp:any) => {
               this.userData.setEmail(resp.json().email);
             });
             this.accountService.getAccount().then((account:any) => {
               this.userData.setAmount(account.json().balance);
+              this.authSuccess();              
             });
           });
         },
@@ -58,7 +59,7 @@ export class LoginPage {
   }
 
   authSuccess() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(ConfirmPage);
   }
 
 

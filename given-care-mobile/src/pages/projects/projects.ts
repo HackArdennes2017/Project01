@@ -18,8 +18,17 @@ export class ProjectsPage {
 
     this.projectService.getAll().then((resp: any) => {
       this.projects = resp.json().data;
-    })
+    });
+  }
 
+  ionViewWillEnter(){
+    const elt:any = document.querySelector('#pl3b15c173-container');
+    elt.style.display = 'none';
+  }
+
+  ionViewWillLeave(){
+    const elt:any = document.querySelector('#pl3b15c173-container');
+    elt.style.display = 'block';
   }
 
 }
