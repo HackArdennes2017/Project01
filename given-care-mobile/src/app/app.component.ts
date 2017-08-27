@@ -38,10 +38,12 @@ export class MyApp {
     { title: 'Accueil', component: HomePage, index: 1, icon: 'home' },
     { title: 'Paiement', component: ConfirmPage, index: 10, icon: 'cash' },
     { title: 'Projets', component: ProjectsPage, index: 20, icon: 'flask'},
-    { title: 'Reports', component: ReportsPage, index: 30, icon: 'disc'}
+    { title: 'Signalements', component: ReportsPage, index: 30, icon: 'disc'}
   ];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public menu: MenuController, public events: Events, public userData: UserData, public accountService:AccountService) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+              public menu: MenuController, public events: Events, public userData: UserData,
+              public accountService:AccountService) {
     this.initializeApp();
 
     // decide which menu items should be hidden by current login status stored in local storage
@@ -84,6 +86,10 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
+  logout() {
+    this.userData.logout();
+  }
+
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
       this.enableMenu(true);
@@ -96,8 +102,11 @@ export class MyApp {
 
     this.events.subscribe('user:logout', () => {
       this.enableMenu(false);
+      this.nav.setRoot(LoginPage);
     });
   }
+
+
 
   enableMenu(loggedIn) {
     this.menu.enable(loggedIn);
