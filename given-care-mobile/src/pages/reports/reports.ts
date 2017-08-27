@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import {HomePage} from "../home/home";
 import { ReportService } from '../../services/report.service';
 import { AlertController } from 'ionic-angular';
@@ -27,7 +27,9 @@ export class ReportsPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public reportService : ReportService,
-              public alertCtrl:AlertController, private _sanitizer: DomSanitizer) {
+              public alertCtrl:AlertController, private _sanitizer: DomSanitizer, private toastCtrl: ToastController) {
+
+      this.presentToast();
 
   }
 
@@ -119,6 +121,20 @@ export class ReportsPage {
 
   cancel(){
     this.navCtrl.setRoot(HomePage);
+  }
+
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'En exclu : Une toute nouvelle façon de faire grimper la cagnotte !',
+      duration: 5000,
+      position: 'middle'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }
