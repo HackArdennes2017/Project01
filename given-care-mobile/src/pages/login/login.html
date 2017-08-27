@@ -1,5 +1,5 @@
 <ion-content class="tutorial-page">
-    <ion-slides pager>
+    <ion-slides pager #slides (ionSlideDidChange)="onSlideDrag()">
         <ion-slide>
           <img src="assets/img/slide1.png" class="slide-image"/>
           <p>Ca vous dirait que sur votre festival préféré un maximum de services vous soient proposés via une app ?
@@ -15,7 +15,7 @@ Et versez au passage un micro-don dans une cagnotte qui bénéficiera à des <b>
           <img id="last-image" src="assets/img/slide3.png" class="slide-image"/>
           <p><b>Alors ? On y va ?!</b>
 Clique sur le bouton ci-dessous et retrouve-toi directement en situation de faire ton premier paiement — oui parce que les créations de compte toussa ben ça nuit à ton expérience de test ;-).</p>
-<button ion-button (click)="register()" block>OK, c'est parti !</button>
         </ion-slide>
+        <ion-slide>C'est parti !</ion-slide>
     </ion-slides>
 </ion-content>
