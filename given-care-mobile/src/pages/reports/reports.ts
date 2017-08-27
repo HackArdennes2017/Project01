@@ -88,7 +88,7 @@ export class ReportsPage {
 
     let context:any = this.photo.nativeElement.getContext('2d');
 
-    context.drawImage(this.videoplayer.nativeElement, 0, 0, 640, 480);
+    context.drawImage(this.videoplayer.nativeElement, 0, 0, 320, 240);
   }
 
 

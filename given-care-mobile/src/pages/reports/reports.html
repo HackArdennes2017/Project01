@@ -67,19 +67,19 @@
             <img [ngClass]="callNow ? 'david-fast' : 'david'" class="" style="position: absolute; right: 30px; bottom: 30px; " [src]="'/assets/david.png'" #david/>
           </ion-grid>
 
-  <div *ngIf="cameraOpen">
-    <div *ngIf="!photoTaken">
-      <video width="auto" height="auto" autoplay controls #videoPlayer>
-        Browser not supported
-      </video>
+  <ion-grid *ngIf="cameraOpen">
+      <ion-row *ngIf="!photoTaken">
+        <video width="100%" height="auto" autoplay controls #videoPlayer>
+          Browser not supported
+        </video>
 
-      <button ion-button (click)="snap()">Take Photo</button>
-    </div>
-    <div [style.display]="photoTaken ? '' : 'none'">
-      <canvas width="auto" height="auto" #canvasImg></canvas>
-      <button ion-button (click)="sendReport()">Send Photo</button>
-    </div>
-  </div>
+        <button ion-button (click)="snap()">Take Photo</button>
+      </ion-row>
+      <ion-row [style.display]="photoTaken ? '' : 'none'">
+        <canvas width="320px" height="240px" #canvasImg></canvas>
+        <button ion-button (click)="sendReport()">Send Photo</button>
+      </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>
