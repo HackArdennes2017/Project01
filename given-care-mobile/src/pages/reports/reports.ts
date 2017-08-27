@@ -5,6 +5,7 @@ import { ReportService } from '../../services/report.service';
 import { AlertController } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 import { DomSanitizer, SafeValue } from '@angular/platform-browser'
+import {ConfirmPage} from "../payment/confirm";
 
 @Component({
   selector: 'page-reports',
@@ -17,6 +18,7 @@ export class ReportsPage {
   photoTaken=false;
   videoSrc:SafeValue;
   type='';
+  callNow=false;
 
   @ViewChild('videoPlayer') videoplayer: any;
   @ViewChild('canvasImg') photo: any;
@@ -33,10 +35,37 @@ export class ReportsPage {
 
   emergencyCall(){
     this.emergency = true;
-    setTimeout(() => {
-      this.emergency = false;
-    }, 3000);
+    this.presentConfirm();
   }
+
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Appel d\'urgence',
+      message: 'Voulez-vous appeler les secours du festival ?',
+      buttons: [
+        {
+          text: 'Oui, vite ! ',
+          role: 'cancel',
+          handler: () => {
+            this.callNow = true;
+            setTimeout(() => {
+              this.emergency = false;
+              this.callNow = false;
+            }, 4000);
+          }
+        },
+        {
+          text: 'Nan, ça va en fait. Jme suis trompé :$.',
+          handler: () => {
+            this.emergency = false;
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   openCamera(){
     this.cameraOpen = true;
@@ -88,7 +117,7 @@ export class ReportsPage {
           const data = response.json();
           this.showOkAlert(data.totalXP, data.gain);
           setTimeout(() => {
-            self.navCtrl.setRoot(HomePage);
+            self.navCtrl.setRoot(ConfirmPage);
           }, 5000);
         },
         (err) => {
@@ -118,7 +147,7 @@ export class ReportsPage {
   }
 
   cancel(){
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(ConfirmPage);
   }
 
 }

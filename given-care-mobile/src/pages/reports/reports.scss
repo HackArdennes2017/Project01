@@ -1,0 +1,26 @@
+
+.david {
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+.david-fast {
+  -webkit-animation:spin 0.3s linear infinite;
+  -moz-animation:spin 0.3s linear infinite;
+  animation:spin 0.3s linear infinite;
+}
+
+.alarm {
+  position: absolute;
+  bottom: 30px;
+  text-align: center;
+}
+
+.button-report {
+  background-color : #00A0AF;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
