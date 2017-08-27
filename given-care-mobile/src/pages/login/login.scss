@@ -1,3 +1,70 @@
 .error{
   color: red;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  ion-app {
+    flex-grow: 1;
+    position: static !important;
+    height: auto !important;
+  }
+
+  #pl3b15c173-container {
+    position: static;
+    background-color: #ffea94;
+
+    .pl3b15c173-button{
+      background-color: #ffea94;
+      border: 1px solid #fe6600;
+      color: #fe6600;
+      border-radius: 5px;
+    }
+  }
+}
+
+.tutorial-page {
+
+  .toolbar-background {
+    background: #fff;
+    border-color: transparent;
+  }
+
+  .slide-zoom {
+    height: 100%;
+  }
+
+  .slide-title {
+    margin-top: 2.8rem;
+  }
+
+  .slide-image {
+    max-height: 90%;
+max-width: 90%;
+    margin: 18px 0;
+  }
+
+  #last-image {
+    max-height: 70%;
+max-width: 70%;
+  }
+
+  b {
+    font-weight: 500;
+  }
+
+  p {
+    padding: 0 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #60646B;
+
+    b {
+      color: #000000;
+    }
+  }
+
+}

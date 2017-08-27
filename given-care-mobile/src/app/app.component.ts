@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { ScanPage } from '../pages/payment/scan';
+import { ConfirmPage } from '../pages/payment/confirm';
 import { LoginPage } from '../pages/login/login';
 
 import { WelcomePage } from '../pages/welcome/welcome';
@@ -28,15 +28,15 @@ export interface PageObj {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
   //pages: Array<{title: string, component: any}>;
 
   appPages: PageObj[] = [
   ];
   loggedInPages: PageObj[] = [
-    { title: 'Accueil', component: HomePage, index: 1, icon: 'home' },
-    { title: 'Paiement', component: ScanPage, index: 10, icon: 'cash' },
+    //{ title: 'Accueil', component: HomePage, index: 1, icon: 'home' },
+    { title: 'Paiement', component: ConfirmPage, index: 10, icon: 'cash' },
     { title: 'Projets', component: ProjectsPage, index: 20, icon: 'flask'},
     { title: 'Signalements', component: ReportsPage, index: 30, icon: 'disc'}
   ];
@@ -57,7 +57,7 @@ export class MyApp {
           this.accountService.getAccount().then((account:any) => {
             userData.setAmount(account.json().balance);
           });
-          this.rootPage = HomePage;
+          this.rootPage = ConfirmPage;
         } else {
           //if(! this.userData.hasPassedTutorial) {
           //  this.rootPage = TutorialPage;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { HomePage } from '../home/home';
+import { ProjectsPage } from '../projects/projects';
 
 import { UserData } from '../../providers/user-data/user-data';
 
@@ -31,7 +31,7 @@ export class ResultPage {
   }
 
   validate(){
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(ProjectsPage);
   }
 
 }
