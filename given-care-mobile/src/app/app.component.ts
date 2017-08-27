@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { ScanPage } from '../pages/payment/scan';
+import { ConfirmPage } from '../pages/payment/confirm';
 import { LoginPage } from '../pages/login/login';
 
 import { WelcomePage } from '../pages/welcome/welcome';
@@ -36,7 +36,7 @@ export class MyApp {
   ];
   loggedInPages: PageObj[] = [
     { title: 'Accueil', component: HomePage, index: 1, icon: 'home' },
-    { title: 'Paiement', component: ScanPage, index: 10, icon: 'cash' },
+    { title: 'Paiement', component: ConfirmPage, index: 10, icon: 'cash' },
     { title: 'Projets', component: ProjectsPage, index: 20, icon: 'flask'},
     { title: 'Reports', component: ReportsPage, index: 30, icon: 'disc'}
   ];
