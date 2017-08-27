@@ -8,11 +8,16 @@ import { UserService } from '../../services/user.service';
 import { AccountService } from '../../services/account.service';
 import { UserData } from '../../providers/user-data/user-data';
 
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
+
+  @ViewChild("slides") slides: Slides;
   
   public message:string = null;
   constructor(public events: Events, public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private accountService:AccountService, private userData: UserData) {}
@@ -39,6 +44,12 @@ export class LoginPage {
           this.message = 'Erreur de connexion : vérifiez vos identifiants';
         }
       );
+  }
+
+  onSlideDrag() {
+    if(this.slides.isEnd()) {
+      this.register();
+    }
   }
   
   register() {
